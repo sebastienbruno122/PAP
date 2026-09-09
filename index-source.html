@@ -63,13 +63,13 @@
   @media (max-width:640px){ .topnav{padding:0 18px;} }
   .topnav-item{
     flex:0 0 auto; display:block;
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.02em; text-transform:uppercase;
-    color:var(--ink-faint); text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+    font-family:var(--font-display); font-size:13.5px; letter-spacing:-.005em; text-transform:none; font-weight:600;
+    color:var(--ink-soft); text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
     padding:11px 13px; border-bottom:2px solid transparent;
     transition:color .2s ease, border-color .2s ease;
   }
   .topnav-item:hover{color:var(--ink);}
-  .topnav-item.active{color:var(--teal-deep); border-color:var(--teal-deep); font-weight:600;}
+  .topnav-item.active{color:var(--teal-deep); border-color:var(--teal-deep); font-weight:700;}
   .topnav-item:focus-visible{outline:2px solid var(--teal); outline-offset:-2px; border-radius:3px;}
   @media (prefers-reduced-motion: reduce){
     .topnav-item{transition:none;}
@@ -195,28 +195,33 @@
 
   /* ---------- team ---------- */
   .person-grid{
-    display:grid; grid-template-columns:repeat(5, minmax(0,200px)); gap:20px;
-    justify-content:center; max-width:1120px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(5, minmax(0,224px)); gap:16px;
+    justify-content:center; max-width:1160px; margin:0 auto;
   }
-  @media (max-width:1150px){ .person-grid{grid-template-columns:repeat(3, minmax(0,200px)); max-width:660px;} }
-  @media (max-width:700px){ .person-grid{grid-template-columns:repeat(2, minmax(0,200px)); max-width:440px;} }
-  @media (max-width:480px){ .person-grid{grid-template-columns:minmax(0,220px); max-width:260px;} }
+  @media (max-width:1150px){ .person-grid{grid-template-columns:repeat(3, minmax(0,224px)); max-width:700px;} }
+  @media (max-width:700px){ .person-grid{grid-template-columns:repeat(2, minmax(0,224px)); max-width:470px;} }
+  @media (max-width:480px){ .person-grid{grid-template-columns:minmax(0,240px); max-width:260px;} }
   .person-card{
-    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius);
-    padding:26px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;
-    transition:background-color .2s ease, border-color .2s ease;
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-top:3px solid var(--accent, var(--teal));
+    border-radius:var(--radius); padding:20px 18px 22px; display:flex; flex-direction:column; text-align:left; gap:14px;
+    transition:background-color .2s ease, border-color .2s ease, transform .2s ease;
   }
-  .person-card:hover{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2);}
+  .person-card:hover{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2); transform:translateY(-3px);}
+  .person-card:nth-child(3n+1){--accent:var(--teal);}
+  .person-card:nth-child(3n+2){--accent:var(--airo);}
+  .person-card:nth-child(3n+3){--accent:var(--empower);}
+  .person-card-head{display:flex; align-items:center; gap:11px;}
   .person-card .avatar{
-    width:104px; height:104px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-display); font-weight:700; font-size:28px; color:rgba(232,241,244,.85);
-    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
-    overflow:hidden; margin-bottom:6px;
+    width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+    font-family:var(--font-display); font-weight:700; font-size:17px; color:rgba(232,241,244,.85);
+    background:rgba(255,255,255,.08); border:1px solid var(--accent, rgba(255,255,255,.18));
+    overflow:hidden;
   }
   .person-card .avatar img{width:100%; height:100%; object-fit:cover; display:block;}
-  .person-card .suite-tag{background:rgba(255,255,255,.1); color:rgba(232,241,244,.85); border:1px solid rgba(255,255,255,.18); align-self:center;}
-  .person-card h3{color:#fff; margin:0; font-size:19px; font-family:var(--font-display);}
-  .person-card p{color:rgba(232,241,244,.72); margin:0; font-size:13.6px;}
+  .person-card .who{display:flex; flex-direction:column; gap:5px; min-width:0;}
+  .person-card .suite-tag{background:rgba(255,255,255,.1); color:var(--accent, rgba(232,241,244,.85)); border:1px solid rgba(255,255,255,.18); align-self:flex-start; font-size:10px;}
+  .person-card h3{color:#fff; margin:0; font-size:16.5px; font-family:var(--font-display); line-height:1.25;}
+  .person-card p{color:rgba(232,241,244,.72); margin:0; font-size:13px; line-height:1.5;}
 
   /* ---------- account overview meta ---------- */
   .phase-meta{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px;}
@@ -303,12 +308,23 @@
   .detail-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
   @media (max-width:760px){ .detail-grid{grid-template-columns:1fr;} }
   .detail-card{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); padding:20px; display:flex; gap:14px; box-shadow:var(--shadow);}
-  .detail-num{
-    flex:0 0 auto; width:32px; height:32px; border-radius:9px; background:var(--teal-wash); color:var(--teal-deep);
-    font-family:var(--font-display); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center;
+  .detail-icon{
+    flex:0 0 auto; width:38px; height:38px; border-radius:11px; background:var(--teal-wash); color:var(--teal-deep);
+    display:flex; align-items:center; justify-content:center;
   }
+  .detail-icon svg{width:19px; height:19px;}
   .detail-card h4{margin:0 0 8px; font-size:14.5px; font-family:var(--font-display);}
   .detail-card p{margin:0; font-size:12.8px; color:var(--ink-soft); line-height:1.55;}
+  .detail-card.featured{
+    border-color:var(--teal); background:linear-gradient(135deg, var(--teal-wash) 0%, var(--panel) 60%);
+    box-shadow:0 4px 20px -8px rgba(39,226,215,.4), var(--shadow);
+  }
+  .detail-card.featured .detail-icon{background:var(--teal); color:#06403D;}
+  .featured-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--teal-ink); background:rgba(255,255,255,.65); padding:3px 9px;
+    border-radius:99px; margin-bottom:7px;
+  }
 
   /* ---------- media (video replay) ---------- */
   .infra-media{margin-top:24px;}
@@ -442,7 +458,6 @@
     <div class="bg-logo l3" data-speed="0.24" data-rotate="5"><div class="bg-logo-float"><img src="ringover_france_logo.jpeg" alt=""></div></div>
   </div>
   <div class="wrap">
-    <span class="eyebrow">Dossier de compte · Onboarding</span>
     <h1>Le projet Ringover pour PAP</h1>
     <p class="lede">
       Cette page suit le dossier Ringover pour PAP (Particulier à Particulier). Le contenu est en cours de
@@ -467,33 +482,53 @@
     </div>
     <div class="person-grid">
       <div class="person-card">
-        <div class="avatar"><img src="photo-sebastien.jpeg" alt="Sébastien Bruno" loading="lazy"></div>
-        <span class="suite-tag">Team Lead Ingénieur Avant-vente</span>
-        <h3>Sébastien Bruno</h3>
+        <div class="person-card-head">
+          <div class="avatar"><img src="photo-sebastien.jpeg" alt="Sébastien Bruno" loading="lazy"></div>
+          <div class="who">
+            <h3>Sébastien Bruno</h3>
+            <span class="suite-tag">Team Lead Ingénieur Avant-vente</span>
+          </div>
+        </div>
         <p>Pilote le cadrage fonctionnel et technique du dossier PAP.</p>
       </div>
       <div class="person-card">
-        <div class="avatar"><img src="photo-remi.png" alt="Rémi Damaisin" loading="lazy"></div>
-        <span class="suite-tag">Commercial</span>
-        <h3>Rémi Damaisin</h3>
+        <div class="person-card-head">
+          <div class="avatar"><img src="photo-remi.png" alt="Rémi Damaisin" loading="lazy"></div>
+          <div class="who">
+            <h3>Rémi Damaisin</h3>
+            <span class="suite-tag">Commercial</span>
+          </div>
+        </div>
         <p>Assure le suivi commercial du dossier PAP.</p>
       </div>
       <div class="person-card">
-        <div class="avatar"><img src="photo-edouard.jpeg" alt="Édouard Chapalain" loading="lazy"></div>
-        <span class="suite-tag">Directeur Commercial France</span>
-        <h3>Édouard Chapalain</h3>
+        <div class="person-card-head">
+          <div class="avatar"><img src="photo-edouard.jpeg" alt="Édouard Chapalain" loading="lazy"></div>
+          <div class="who">
+            <h3>Édouard Chapalain</h3>
+            <span class="suite-tag">Directeur Commercial France</span>
+          </div>
+        </div>
         <p>Supervise la stratégie commerciale du dossier au niveau France.</p>
       </div>
       <div class="person-card">
-        <div class="avatar"><img src="photo-lilia.jpeg" alt="Lilia Payet" loading="lazy"></div>
-        <span class="suite-tag">Customer Success Manager</span>
-        <h3>Lilia Payet</h3>
+        <div class="person-card-head">
+          <div class="avatar"><img src="photo-lilia.jpeg" alt="Lilia Payet" loading="lazy"></div>
+          <div class="who">
+            <h3>Lilia Payet</h3>
+            <span class="suite-tag">Customer Success Manager</span>
+          </div>
+        </div>
         <p>Pilote l'onboarding et l'adoption une fois le contrat signé.</p>
       </div>
       <div class="person-card">
-        <div class="avatar"><img src="photo-sybille.jpeg" alt="Sybille Canneau" loading="lazy"></div>
-        <span class="suite-tag">Responsable Portabilité</span>
-        <h3>Sybille Canneau</h3>
+        <div class="person-card-head">
+          <div class="avatar"><img src="photo-sybille.jpeg" alt="Sybille Canneau" loading="lazy"></div>
+          <div class="who">
+            <h3>Sybille Canneau</h3>
+            <span class="suite-tag">Responsable Portabilité</span>
+          </div>
+        </div>
         <p>Pilote l'équipe portabilité Ringover : récupération des documents et bascule des numéros.</p>
       </div>
     </div>
@@ -517,7 +552,7 @@
     <div class="suite-group" style="text-align:center;">
       <div class="infra-media panel-white video-showcase">
         <figure>
-          <video controls preload="metadata" playsinline width="1280" height="720">
+          <video controls preload="metadata" playsinline width="1280" height="720" poster="poster-rdv-pap.jpg">
             <source src="rdv-pap.mp4" type="video/mp4">
           </video>
         </figure>
@@ -554,39 +589,41 @@
 
     <div class="detail-grid">
       <div class="detail-card">
-        <div class="detail-num">1</div>
+        <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div>
           <h4>Stabilité de la solution</h4>
           <p>Un SLA engagé et une page de statut publique avec historique des incidents : une fiabilité vérifiable en continu, pas seulement annoncée.</p>
         </div>
       </div>
       <div class="detail-card">
-        <div class="detail-num">2</div>
+        <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0"/><path d="M21 12v5a2 2 0 0 1-2 2h-1"/><rect x="3" y="12" width="4" height="6" rx="1"/><rect x="17" y="12" width="4" height="6" rx="1"/></svg></div>
         <div>
           <h4>Accompagnement dédié</h4>
           <p>Un département portabilité intégré chez Ringover, qui prend en charge la bascule des numéros de bout en bout, sans prestataire tiers.</p>
         </div>
       </div>
       <div class="detail-card">
-        <div class="detail-num">3</div>
+        <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
         <div>
           <h4>Ergonomie de la solution</h4>
           <p>Une interface pensée pour une prise en main en quelques heures, pas en plusieurs semaines de formation.</p>
         </div>
       </div>
       <div class="detail-card">
-        <div class="detail-num">4</div>
+        <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2" fill="currentColor" stroke="none"/></svg></div>
         <div>
           <h4>SVI paramétrable</h4>
           <p>Débordement, multi-numéro, règles de routage : configurables directement par vos équipes, sans ticket support ni développeur.</p>
         </div>
       </div>
-      <div class="detail-card">
-        <div class="detail-num">5</div>
-        <div>
-          <h4>IA native incluse</h4>
-          <p>Transcription et résumé automatique des appels, inclus nativement sans surcoût.</p>
-        </div>
+    </div>
+
+    <div class="detail-card featured" style="margin-top:16px;">
+      <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></div>
+      <div>
+        <span class="featured-tag">Le plus différenciant</span>
+        <h4>IA native incluse</h4>
+        <p>Transcription et résumé automatique des appels, inclus nativement sans surcoût.</p>
       </div>
     </div>
   </div>
