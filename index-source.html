@@ -304,6 +304,19 @@
   .table-block-head .table-note{font-size:12.5px; color:var(--ink-faint);}
   tr.total-row-line td{background:var(--bg-zone-pricing); font-weight:700; color:var(--ink); border-top:2px solid var(--panel-border);}
 
+  /* ---------- roadmap (sober list, not a card grid) ---------- */
+  .roadmap-list{list-style:none; margin:28px 0 0; padding:0; display:flex; flex-direction:column;}
+  .roadmap-list li{display:flex; gap:16px; padding:20px 0; border-bottom:1px solid var(--panel-border);}
+  .roadmap-list li:first-child{padding-top:0;}
+  .roadmap-list li:last-child{border-bottom:none; padding-bottom:0;}
+  .roadmap-icon{
+    flex:0 0 auto; width:34px; height:34px; border-radius:9px; background:var(--bg);
+    border:1px solid var(--panel-border); color:var(--ink-faint); display:flex; align-items:center; justify-content:center;
+  }
+  .roadmap-icon svg{width:17px; height:17px;}
+  .roadmap-list h4{margin:0 0 6px; font-size:14.5px; font-family:var(--font-display); color:var(--ink); font-weight:600;}
+  .roadmap-list p{margin:0; font-size:13px; color:var(--ink-soft); line-height:1.55;}
+
   /* ---------- strengths (cards) ---------- */
   .detail-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
   @media (max-width:760px){ .detail-grid{grid-template-columns:1fr;} }
@@ -1081,6 +1094,62 @@
         <li><span class="tick">✓</span><span>Un SLA engagé avec crédits de service en cas d'indisponibilité prolongée (voir SLA), pour limiter le coût d'une interruption non maîtrisée.</span></li>
       </ul>
     </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Pour aller plus loin, quand vous serez prêts</h2>
+        <p>Lors de notre dernier échange, vous avez montré de l'intérêt pour plusieurs fonctionnalités qui ne font pas partie du périmètre actuel, mais qui pourraient prendre tout leur sens à mesure que vos besoins évoluent. Voici ce qu'il sera possible d'activer, le moment venu.</p>
+      </div>
+    </div>
+
+    <ul class="roadmap-list">
+      <li>
+        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="4" y2="10"/><line x1="10" y1="20" x2="10" y2="4"/><line x1="16" y1="20" x2="16" y2="13"/><line x1="20" y1="20" x2="20" y2="8"/></svg></div>
+        <div>
+          <h4>Empower — analyse conversationnelle</h4>
+          <p>Résumés et comptes rendus sur mesure, analyse de la qualité des échanges au regard de vos méthodologies, détection de tendances, mots-clés et tonalité des appels.</p>
+        </div>
+      </li>
+      <li>
+        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+        <div>
+          <h4>Académie virtuelle</h4>
+          <p>Un espace de formation continue pour vos conseillers, pour progresser en autonomie.</p>
+        </div>
+      </li>
+      <li>
+        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6l-4 4H4a1 1 0 0 0-1 1z"/><path d="M16 8a4 4 0 0 1 0 8"/><path d="M19 5a8 8 0 0 1 0 14"/></svg></div>
+        <div>
+          <h4>Campagnes d'appels et SMS</h4>
+          <p>Appels et SMS massifs pour vos campagnes commerciales ou de relance.</p>
+        </div>
+      </li>
+      <li>
+        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 13h6"/><path d="M9 17h6"/><path d="M9 9h2"/></svg></div>
+        <div>
+          <h4>Scripts affichés en direct</h4>
+          <p>Une trame ou une base de connaissances accessible directement pendant l'appel, pour guider vos conseillers en temps réel.</p>
+        </div>
+      </li>
+      <li>
+        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+        <div>
+          <h4>Statistiques avancées</h4>
+          <p>Un pilotage plus fin de votre activité, au-delà du reporting standard.</p>
+        </div>
+      </li>
+      <li>
+        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1" fill="currentColor" stroke="none"/><line x1="9" y1="13" x2="9" y2="15"/><line x1="15" y1="13" x2="15" y2="15"/></svg></div>
+        <div>
+          <h4>Agents IA autonomes</h4>
+          <p>Une réponse automatique en dehors des horaires d'ouverture, capable de s'appuyer sur une base de connaissances et de rediriger vers un humain dès que nécessaire — pensé comme un complément aux heures fermées, pas un remplacement du contact humain que vous privilégiez pendant les heures ouvrées.</p>
+        </div>
+      </li>
+    </ul>
   </div>
 </section>
 
