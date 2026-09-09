@@ -255,6 +255,12 @@
   .dt-step-connector{width:2px; height:16px; background:var(--panel-border); margin-top:8px;}
   .dt-step.success .dt-step-date{color:var(--ok);}
   .dt-step.success .dt-step-connector{background:var(--ok);}
+  .dt-step.current .dt-step-date{color:var(--teal-deep);}
+  .dt-step.current .dt-step-connector{background:var(--teal-deep); width:3px;}
+  .dt-step-here{
+    display:inline-block; font-family:var(--font-mono); font-size:9.5px; font-weight:700; letter-spacing:.05em;
+    text-transform:uppercase; color:#fff; background:var(--teal-deep); border-radius:99px; padding:3px 9px; margin-bottom:6px;
+  }
   .dt-journey-track{display:flex; gap:2px; height:14px; margin-top:0;}
   .dt-journey-seg{height:100%;}
   .dt-journey-seg:first-child{border-radius:7px 0 0 7px;}
@@ -322,6 +328,62 @@
   .suite-band .table-block-head .table-note{color:rgba(232,241,244,.6);}
   .suite-band .count-note{color:rgba(232,241,244,.55);}
 
+  /* ---------- placeholder blocks (content to complete) ---------- */
+  .placeholder-block{
+    border:1px dashed var(--ink-faint); border-radius:var(--radius); padding:20px 22px;
+    background:#FAFBFC; color:var(--ink-soft); font-size:13.6px; line-height:1.65; font-style:italic;
+  }
+  .placeholder-block .tag{
+    font-style:normal; color:var(--warn); font-family:var(--font-mono); font-size:11px;
+    letter-spacing:.04em; text-transform:uppercase; display:block; margin-bottom:8px; font-weight:700;
+  }
+  .suite-band .placeholder-block{border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.05); color:rgba(232,241,244,.82);}
+  .suite-band .placeholder-block .tag{color:var(--empower);}
+
+  /* ---------- mutual action plan (two columns) ---------- */
+  .action-plan-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:24px;}
+  @media (max-width:760px){ .action-plan-grid{grid-template-columns:1fr;} }
+  .action-plan-col{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);}
+  .action-plan-col h3{margin:0 0 4px; font-size:16px; font-family:var(--font-display);}
+  .action-plan-col .action-plan-sub{font-size:12px; color:var(--ink-faint); margin:0 0 16px;}
+  .action-plan-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .action-plan-list li{font-size:13px; color:var(--ink-soft); line-height:1.5; padding-bottom:12px; border-bottom:1px solid var(--panel-border);}
+  .action-plan-list li:last-child{border-bottom:none; padding-bottom:0;}
+  .action-plan-owner{display:block; margin-top:5px; font-family:var(--font-mono); font-size:11px; color:var(--teal-deep); text-transform:uppercase; letter-spacing:.03em;}
+
+  /* ---------- references ---------- */
+  .reference-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  @media (max-width:760px){ .reference-grid{grid-template-columns:1fr;} }
+
+  /* ---------- deadline callout ---------- */
+  .deadline-callout{
+    display:flex; align-items:center; gap:12px; background:var(--warn-bg); border:1px solid rgba(196,121,10,.25);
+    border-radius:var(--radius); padding:16px 20px; margin-top:20px; color:#6B4207; font-size:13.4px; line-height:1.5;
+  }
+  .deadline-callout b{font-weight:700;}
+  .deadline-callout .icon{font-size:18px; flex:0 0 auto;}
+
+  /* ---------- final CTA ---------- */
+  .cta-band{
+    background:linear-gradient(180deg, #0A1620 0%, #0C1D26 100%); border-radius:24px; padding:44px 40px;
+    text-align:center; color:#fff;
+  }
+  .cta-band h2{color:#fff; margin:0 0 10px;}
+  .cta-band p{color:rgba(232,241,244,.78); max-width:60ch; margin:0 auto 22px; font-size:14.5px;}
+  .cta-band .cta-date{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12.5px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:99px;
+    padding:8px 16px; color:#fff; margin-bottom:22px;
+  }
+  .cta-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .cta-button{
+    display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:14px;
+    padding:12px 22px; border-radius:99px; text-decoration:none; transition:transform .15s ease;
+  }
+  .cta-button.primary{background:var(--teal); color:#06403D;}
+  .cta-button.secondary{background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.22);}
+  .cta-button:hover{transform:translateY(-1px);}
+
   /* ---------- checklists (Gold accompaniment) ---------- */
   .infra-list{list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:10px;}
   .infra-list li{display:flex; align-items:flex-start; gap:10px; font-size:13.4px; color:rgba(232,241,244,.82); line-height:1.5;}
@@ -330,6 +392,8 @@
     background:color-mix(in srgb, var(--teal) 22%, transparent); color:var(--teal);
     display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;
   }
+  .infra-list.on-light li{color:var(--ink-soft);}
+  .infra-list.on-light .tick{background:var(--teal-wash); color:var(--teal-deep);}
 
   footer{padding:36px 0 60px; border-top:1px solid var(--panel-border); margin-top:20px;}
   .footer-row{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
@@ -359,11 +423,14 @@
       <a class="topnav-item active" href="#hero" data-target="hero">Accueil</a>
       <a class="topnav-item" href="#equipe" data-target="equipe">Équipe</a>
       <a class="topnav-item" href="#replay" data-target="replay">Revoir notre dernier rdv</a>
+      <a class="topnav-item" href="#comprehension" data-target="comprehension">Votre besoin</a>
       <a class="topnav-item" href="#atouts" data-target="atouts">Pourquoi Ringover</a>
       <a class="topnav-item" href="#accompagnement" data-target="accompagnement">Accompagnement</a>
       <a class="topnav-item" href="#deployment-plan" data-target="deployment-plan">Plan de déploiement</a>
       <a class="topnav-item" href="#sla" data-target="sla">SLA</a>
+      <a class="topnav-item" href="#references" data-target="references">Références</a>
       <a class="topnav-item" href="#pricing" data-target="pricing">Tarification</a>
+      <a class="topnav-item" href="#cta" data-target="cta">Prochaine étape</a>
     </div>
   </nav>
 </div>
@@ -459,6 +526,23 @@
   </div>
 </section>
 
+<section id="comprehension">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Ce qu'on a compris de votre besoin</h2>
+        <p>Notre lecture de la situation actuelle de PAP, à valider ensemble avant d'aller plus loin.</p>
+      </div>
+    </div>
+    <div class="placeholder-block">
+      <span class="tag">À compléter</span>
+      [À COMPLÉTER : reformuler en 2-3 phrases la situation actuelle de PAP (solution en place, irritants
+      identifiés lors du dernier rendez-vous, contexte métier) et ce qui motive la recherche d'une nouvelle
+      solution — à rédiger à partir des notes réelles de l'échange avec PAP, sans inventer de détails.]
+    </div>
+  </div>
+</section>
+
 <section id="atouts">
   <div class="wrap">
     <div class="section-head">
@@ -473,28 +557,28 @@
         <div class="detail-num">1</div>
         <div>
           <h4>Stabilité de la solution</h4>
-          <p>SLA engagé, sélection rigoureuse des opérateurs télécom, et une page de statut publique avec historique des incidents résolus.</p>
+          <p>Un SLA engagé et une page de statut publique avec historique des incidents : une fiabilité vérifiable en continu, pas seulement annoncée.</p>
         </div>
       </div>
       <div class="detail-card">
         <div class="detail-num">2</div>
         <div>
           <h4>Accompagnement dédié</h4>
-          <p>Formation complète des équipes et département portabilité dédié pour sécuriser la bascule des numéros.</p>
+          <p>Un département portabilité intégré chez Ringover, qui prend en charge la bascule des numéros de bout en bout, sans prestataire tiers.</p>
         </div>
       </div>
       <div class="detail-card">
         <div class="detail-num">3</div>
         <div>
           <h4>Ergonomie de la solution</h4>
-          <p>Une interface simple et intuitive, pensée pour une prise en main rapide par les utilisateurs et les administrateurs.</p>
+          <p>Une interface pensée pour une prise en main en quelques heures, pas en plusieurs semaines de formation.</p>
         </div>
       </div>
       <div class="detail-card">
         <div class="detail-num">4</div>
         <div>
           <h4>SVI paramétrable</h4>
-          <p>Débordement d'appels, gestion multi-numéro, et règles de routage entièrement configurables.</p>
+          <p>Débordement, multi-numéro, règles de routage : configurables directement par vos équipes, sans ticket support ni développeur.</p>
         </div>
       </div>
       <div class="detail-card">
@@ -584,13 +668,9 @@
       </div>
 
       <div class="dt-journey">
-        <div class="dt-step">
-          <div class="dt-step-date">Vendredi</div>
-          <div class="dt-step-desc">Décision interne de PAP + créneau de portabilité (10h)</div>
-          <div class="dt-step-connector"></div>
-        </div>
-        <div class="dt-step">
-          <div class="dt-step-date">15 septembre</div>
+        <div class="dt-step current">
+          <span class="dt-step-here">Vous êtes ici</span>
+          <div class="dt-step-date">Vendredi 11 septembre</div>
           <div class="dt-step-desc">Décision interne PAP</div>
           <div class="dt-step-connector"></div>
         </div>
@@ -606,7 +686,7 @@
         </div>
         <div class="dt-step">
           <div class="dt-step-date">Mi-octobre</div>
-          <div class="dt-step-desc">Migration des numéros + suivi (4 x 30 min)</div>
+          <div class="dt-step-desc">Migration des numéros (créneau habituel : vendredi 10h) + suivi (4 x 30 min)</div>
           <div class="dt-step-connector"></div>
         </div>
         <div class="dt-step">
@@ -616,23 +696,22 @@
         </div>
         <div class="dt-step success">
           <div class="dt-step-date">Fin d'onboarding</div>
-          <div class="dt-step-desc">Projet déployé, équipes autonomes ✓</div>
+          <div class="dt-step-desc">Déploiement finalisé, équipes autonomes (objectif)</div>
           <div class="dt-step-connector"></div>
         </div>
       </div>
 
       <div class="dt-journey-track">
-        <div class="dt-journey-seg" style="width:14.29%; background:#8FF0EA"></div>
-        <div class="dt-journey-seg" style="width:14.29%; background:#6AC0BB"></div>
-        <div class="dt-journey-seg" style="width:14.29%; background:#51A09B"></div>
-        <div class="dt-journey-seg" style="width:14.29%; background:#38807C"></div>
-        <div class="dt-journey-seg" style="width:14.29%; background:#1F605C"></div>
-        <div class="dt-journey-seg" style="width:14.28%; background:#06403D"></div>
-        <div class="dt-journey-seg" style="width:14.28%; background:var(--ok);"><span class="check">✓</span></div>
+        <div class="dt-journey-seg" style="width:16.67%; background:#8FF0EA"></div>
+        <div class="dt-journey-seg" style="width:16.67%; background:#6AC0BB"></div>
+        <div class="dt-journey-seg" style="width:16.67%; background:#51A09B"></div>
+        <div class="dt-journey-seg" style="width:16.67%; background:#38807C"></div>
+        <div class="dt-journey-seg" style="width:16.66%; background:#1F605C"></div>
+        <div class="dt-journey-seg" style="width:16.66%; background:var(--ok);"><span class="check">✓</span></div>
       </div>
       <div class="dt-journey-scale">
-        <span>Aujourd'hui</span>
-        <span>Projet déployé avec succès</span>
+        <span>Aujourd'hui : cadrage &amp; décision</span>
+        <span>Objectif : déploiement finalisé</span>
       </div>
 
     </div>
@@ -646,72 +725,83 @@
         <div class="table-scroll">
           <table>
             <thead>
-              <tr><th>Date / période</th><th>Sujet</th><th>Ce qui a été dit</th><th>Certitude</th></tr>
+              <tr><th>Date / période</th><th>Sujet</th><th>Ce qui a été dit</th></tr>
             </thead>
             <tbody>
               <tr>
-                <td>Vendredi</td>
-                <td>Décision interne</td>
-                <td class="chapitre">Vous avez indiqué qu'une décision devait être prise ce vendredi.</td>
-                <td><span class="badge ok"><span class="d"></span>Confirmé</span></td>
+                <td>Vendredi 11 septembre</td>
+                <td>Décision interne PAP</td>
+                <td class="chapitre">Vous avez indiqué qu'une décision serait prise ce vendredi, au plus tard avant le 15 septembre. <span class="badge ok"><span class="d"></span>Confirmé</span></td>
               </tr>
               <tr>
                 <td>Vendredi 10h</td>
                 <td>Portabilité</td>
-                <td class="chapitre">La portabilité est décrite comme se faisant à une date et une heure précises, souvent le vendredi à 10h, avec vérification des appels après coup.</td>
-                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
-              </tr>
-              <tr>
-                <td>Avant le 15 septembre</td>
-                <td>Décision interne PAP</td>
-                <td class="chapitre">Une slide évoque une décision interne avant le 15 septembre.</td>
-                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+                <td class="chapitre">La portabilité est calée sur un créneau précis, généralement le vendredi à 10h, avec vérification des appels après coup.</td>
               </tr>
               <tr>
                 <td>À partir du 20 septembre</td>
                 <td>Signature / lancement du process</td>
-                <td class="chapitre">Le suivi indique qu'ensuite on entre dans le process de signature et l'ouverture des accès.</td>
-                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+                <td class="chapitre">Le process de signature démarre à cette date, avec ouverture des accès.</td>
               </tr>
               <tr>
                 <td>La semaine suivante</td>
                 <td>Reprise après congés</td>
-                <td class="chapitre">Il est dit que la suite du projet reprendra après une semaine de congés.</td>
-                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
-              </tr>
-              <tr>
-                <td>Octobre</td>
-                <td>Déploiement / migration</td>
-                <td class="chapitre">Le mois d'octobre est cité comme repère pour la suite du projet et la migration.</td>
-                <td><span class="badge dev"><span class="d"></span>Indicatif</span></td>
+                <td class="chapitre">Le projet reprend après une semaine de congés.</td>
               </tr>
               <tr>
                 <td>Mi-octobre</td>
                 <td>Migration des numéros</td>
-                <td class="chapitre">Un passage évoque mi-octobre comme point de repère, avec l'idée que la migration des numéros n'a pas encore eu lieu à ce moment-là.</td>
-                <td><span class="badge dev"><span class="d"></span>Indicatif</span></td>
+                <td class="chapitre">La migration des numéros est prévue à cette période ; elle n'a pas encore eu lieu à ce stade.</td>
               </tr>
               <tr>
                 <td>Novembre</td>
                 <td>Service client / installation</td>
-                <td class="chapitre">Il est mentionné que novembre correspondrait à l'installation et au déploiement de la solution sur un ou plusieurs numéros parisiens.</td>
-                <td><span class="badge dev"><span class="d"></span>Indicatif</span></td>
+                <td class="chapitre">Installation et déploiement de la solution sur un ou plusieurs numéros parisiens.</td>
               </tr>
               <tr>
                 <td>Pendant la portabilité</td>
                 <td>Continuité de service</td>
                 <td class="chapitre">Vous avez demandé s'il y aurait une coupure ; la réponse indique une indisponibilité possible de quelques minutes sur certains opérateurs, mais pas une interruption longue.</td>
-                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <p class="count-note">
-        Déploiement : pas de date ferme unique annoncée ; les repères les plus concrets sont mi-octobre et novembre.
-        Portabilité : opération cadrée à un créneau précis, souvent vendredi 10h, avec une micro-indisponibilité possible sur certains opérateurs.
-        Décision / suite du projet : décision attendue ce vendredi, puis reprise du projet après la semaine de congés.
+        Seule la décision du vendredi 11 septembre est confirmée. Les autres dates (20 septembre, mi-octobre, novembre)
+        sont des repères indicatifs évoqués à l'oral, à reconfirmer au fil du projet.
       </p>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Plan d'action mutuel</h3>
+        <span class="table-note">Qui fait quoi, avec un propriétaire identifié de chaque côté</span>
+      </div>
+      <div class="action-plan-grid">
+        <div class="action-plan-col">
+          <h3>Ringover</h3>
+          <p class="action-plan-sub">Actions portées par l'équipe Ringover</p>
+          <ul class="action-plan-list">
+            <li>Confirmer la tarification et transmettre le bon de commande<span class="action-plan-owner">Rémi Damaisin</span></li>
+            <li>Animer le kick-off call et le cadrage technique (1h)<span class="action-plan-owner">Sébastien Bruno</span></li>
+            <li>Dispenser les formations (4 à 6h) et les 4 sessions de suivi<span class="action-plan-owner">Lilia Payet</span></li>
+            <li>Piloter la migration des numéros<span class="action-plan-owner">Sybille Canneau</span></li>
+            <li>Accompagner l'installation sur les numéros parisiens et le wrap-up<span class="action-plan-owner">Lilia Payet</span></li>
+          </ul>
+        </div>
+        <div class="action-plan-col">
+          <h3>PAP</h3>
+          <p class="action-plan-sub">Actions attendues côté PAP</p>
+          <ul class="action-plan-list">
+            <li>Valider la décision interne avant le 15 septembre<span class="action-plan-owner">La Fleur Degbe</span></li>
+            <li>Signer le bon de commande à partir du 20 septembre<span class="action-plan-owner">La Fleur Degbe</span></li>
+            <li>Mobiliser les équipes pour les sessions de formation<span class="action-plan-owner">Équipes PAP</span></li>
+            <li>Fournir les documents nécessaires à la portabilité des numéros<span class="action-plan-owner">Équipes PAP</span></li>
+            <li>Valider le bon fonctionnement en production après installation<span class="action-plan-owner">Équipes PAP</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -798,6 +888,56 @@
     <p class="count-note" style="margin-top:20px;">
       Ce SLA ne s'applique pas aux services Empower ni pendant une période d'essai gratuit. Source : SLA Ringover Inc., Annexe 5, 18 juin 2025, conditions complètes disponibles sur demande.
     </p>
+
+    <div class="suite-group">
+      <h3 class="suite-subhead">Hébergement des données &amp; conformité</h3>
+      <p class="suite-subhead-intro">Où vivent vos données, et sous quelles garanties.</p>
+      <div class="phase-meta">
+        <div class="phase-meta-item">
+          <div class="k">Datacenters</div>
+          <div class="v">16 sites dans le monde, dont plusieurs en France (Paris, Ivry-sur-Seine, Saint-Denis)</div>
+        </div>
+        <div class="phase-meta-item">
+          <div class="k">RGPD</div>
+          <div class="v">Traitement conforme au RGPD pour les clients européens</div>
+        </div>
+        <div class="phase-meta-item">
+          <div class="k">Certifications</div>
+          <div class="v">ISO 27001 au minimum sur tous les sites ; ISO 9001, 22301, 45001, PCI DSS et SOC 2 sur les sites principaux</div>
+        </div>
+      </div>
+      <div class="placeholder-block" style="margin-top:20px;">
+        <span class="tag">À compléter</span>
+        [À COMPLÉTER : confirmer avec l'équipe juridique/sécurité Ringover l'engagement RGPD précis pour PAP
+        (DPA signé, localisation exacte d'hébergement des données de PAP, durée de conservation) — ne jamais
+        indiquer une certification ou un engagement non vérifié.]
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="references">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Ils nous font confiance</h2>
+        <p>Des références dans un secteur proche de PAP, ou déjà passées par une migration similaire.</p>
+      </div>
+    </div>
+    <div class="reference-grid">
+      <div class="placeholder-block">
+        <span class="tag">À compléter</span>
+        [À COMPLÉTER : insérer une vraie référence client dans un secteur proche de PAP (immobilier /
+        petites annonces), avec logo, nom de l'entreprise et citation réelle — ne jamais générer de faux
+        nom ou de fausse citation.]
+      </div>
+      <div class="placeholder-block">
+        <span class="tag">À compléter</span>
+        [À COMPLÉTER : insérer une référence d'un client venant d'un concurrent (contexte de migration
+        comparable à celui de PAP), avec logo, nom de l'entreprise et citation réelle — ne jamais générer
+        de faux nom ou de fausse citation.]
+      </div>
+    </div>
   </div>
 </section>
 
@@ -808,6 +948,11 @@
         <h2>Tarification</h2>
         <p>Le détail de votre abonnement, issu du bon de commande émis le 28 août 2026 (valable jusqu'au 18 septembre 2026).</p>
       </div>
+    </div>
+
+    <div class="deadline-callout">
+      <span class="icon">⏳</span>
+      <span><b>Tarif valable jusqu'au 18 septembre 2026</b> — bon de commande émis le 28 août 2026. Passé cette date, les conditions ci-dessous devront être revalidées.</span>
     </div>
 
     <div class="phase-meta">
@@ -872,13 +1017,37 @@
     </div>
 
     <p class="count-note">Montants exprimés hors taxes (HT). Le présent récapitulatif est régi par les Conditions Générales de Vente et de Services de Ringover, disponibles sur ringover.fr/cgv.</p>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Ce que ça représente concrètement</h3>
+      </div>
+      <ul class="infra-list on-light">
+        <li><span class="tick">✓</span><span>Du temps gagné au quotidien grâce à la transcription et au résumé automatique des appels (IA native incluse) — [À COMPLÉTER : temps gagné estimé par agent/semaine, si disponible].</span></li>
+        <li><span class="tick">✓</span><span>Un SLA engagé avec crédits de service en cas d'indisponibilité prolongée (voir SLA), pour limiter le coût d'une interruption non maîtrisée.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Prochaine étape</h2>
+      <p>Pour sécuriser le tarif actuel et tenir le calendrier discuté, la prochaine étape est la confirmation de votre décision interne.</p>
+      <div class="cta-date">⏳ Décision à confirmer avant le 15 septembre 2026 — tarif valable jusqu'au 18 septembre 2026</div>
+      <div class="cta-actions">
+        <a class="cta-button primary" href="mailto:remi.damaisin@ringover.com?subject=PAP%20%C3%97%20Ringover%20%E2%80%94%20Confirmation%20de%20la%20d%C3%A9cision">Confirmer la décision</a>
+        <a class="cta-button secondary" href="#pricing">Revoir la tarification</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-row">
     <p class="foot-brand">Ringover × PAP</p>
-    <p>Dossier de compte en cours de construction.</p>
+    <p>Dossier de compte — dernière mise à jour le 9 septembre 2026.</p>
   </div>
 </footer>
 
