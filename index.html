@@ -356,6 +356,10 @@
   .suite-band .placeholder-block{border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.05); color:rgba(232,241,244,.82);}
   .suite-band .placeholder-block .tag{color:var(--empower);}
 
+  /* ---------- comprehension ---------- */
+  .comprehension-body{max-width:72ch; display:flex; flex-direction:column; gap:16px;}
+  .comprehension-body p{margin:0; font-size:14.5px; color:var(--ink-soft); line-height:1.65;}
+
   /* ---------- mutual action plan (two columns) ---------- */
   .action-plan-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:24px;}
   @media (max-width:760px){ .action-plan-grid{grid-template-columns:1fr;} }
@@ -569,11 +573,12 @@
         <p>Notre lecture de la situation actuelle de PAP, à valider ensemble avant d'aller plus loin.</p>
       </div>
     </div>
-    <div class="placeholder-block">
-      <span class="tag">À compléter</span>
-      [À COMPLÉTER : reformuler en 2-3 phrases la situation actuelle de PAP (solution en place, irritants
-      identifiés lors du dernier rendez-vous, contexte métier) et ce qui motive la recherche d'une nouvelle
-      solution — à rédiger à partir des notes réelles de l'échange avec PAP, sans inventer de détails.]
+    <div class="comprehension-body">
+      <p>Vous nous avez fait part d'un besoin de fiabilité avant tout : un système qui ne tombe pas au mauvais moment, avec une vraie visibilité en cas d'incident. Un appel manqué, c'est potentiellement un contact perdu.</p>
+      <p>Vous avez aussi insisté sur la nécessité d'une transition en douceur : ne pas perturber vos équipes ni vos interlocuteurs pendant la bascule, et être accompagnés pour monter en compétence rapidement plutôt que livrés à vous-mêmes après la signature.</p>
+      <p>Du côté des équipes, vous cherchez une solution simple à prendre en main, aussi bien pour les utilisateurs à l'aise avec les outils numériques que pour les autres, sans formation à rallonge ni interface qui complique plus qu'elle ne simplifie.</p>
+      <p>Vous nous avez parlé de la gestion des pics d'appels : pouvoir router, faire déborder, gérer plusieurs numéros selon les besoins, et garder la main sur ces règles sans dépendre systématiquement de votre service informatique.</p>
+      <p>Enfin, vous voyez un vrai intérêt à mieux exploiter le contenu de vos appels, pour la qualité de service et pour la formation de vos équipes, sans faire grimper la facture avec des options en plus.</p>
     </div>
   </div>
 </section>
