@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAP × Ringover — Dossier de compte</title>
+<meta name="description" content="Suivi du dossier Ringover pour PAP (Particulier à Particulier) : accompagnement, onboarding et prochaines étapes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6F8F9;
+    --panel: #FFFFFF;
+    --panel-border: #E4E9EC;
+    --ink: #0E1A22;
+    --ink-soft: #4B5B63;
+    --ink-faint: #8A98A0;
+    --teal: #27E2D7;
+    --teal-deep: #0E8F87;
+    --teal-ink: #06403D;
+    --teal-wash: #E8FBFA;
+    --ok: #1B9C57;
+    --ok-bg: #E4F7EC;
+    --warn: #C4790A;
+    --warn-bg: #FDF1DE;
+    --bad: #D7373F;
+    --bad-bg: #FBE6E7;
+    --dev: #3B5FCC;
+    --dev-bg: #E8ECFB;
+    --bg-zone-sc: #F4F9F8;
+    --bg-zone-com: #F9F8F5;
+    --bg-zone-deploy: #F5F7FA;
+    --bg-zone-pricing: #F8F7F6;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 2px rgba(14,26,34,.04), 0 8px 24px -12px rgba(14,26,34,.12);
+    --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); line-height:1.55; font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal-deep);}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:15px;} }
+
+  /* ---------- top nav (sticky, horizontal) ---------- */
+  .topnav-wrap{
+    border-top:1px solid var(--panel-border);
+    overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .topnav-wrap::-webkit-scrollbar{display:none;}
+  .topnav{
+    display:flex; gap:2px; white-space:nowrap;
+    max-width:1180px; margin:0 auto; padding:0 28px;
+  }
+  @media (max-width:640px){ .topnav{padding:0 18px;} }
+  .topnav-item{
+    flex:0 0 auto; display:block;
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.02em; text-transform:uppercase;
+    color:var(--ink-faint); text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+    padding:11px 13px; border-bottom:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .topnav-item:hover{color:var(--ink);}
+  .topnav-item.active{color:var(--teal-deep); border-color:var(--teal-deep); font-weight:600;}
+  .topnav-item:focus-visible{outline:2px solid var(--teal); outline-offset:-2px; border-radius:3px;}
+  @media (prefers-reduced-motion: reduce){
+    .topnav-item{transition:none;}
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:40;
+    background:rgba(246,248,249,.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:16px;}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 4px var(--teal-wash);}
+  .brand .x{color:var(--ink-faint); font-weight:500; margin:0 2px;}
+  .brand-logo{height:20px; width:auto; display:block; border-radius:3px;}
+  .topbar-controls{display:flex; align-items:center; gap:10px;}
+  .sync-pill{
+    display:flex; align-items:center; gap:7px;
+    font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:99px;
+    padding:6px 12px 6px 10px;
+  }
+  .sync-pill .led{width:7px; height:7px; border-radius:50%; background:var(--ok); position:relative;}
+  .sync-pill .led::after{
+    content:''; position:absolute; inset:-4px; border-radius:50%;
+    border:1px solid var(--ok); opacity:.5; animation:ping 2.4s ease-out infinite;
+  }
+  @keyframes ping{ 0%{transform:scale(.6); opacity:.6;} 100%{transform:scale(1.9); opacity:0;} }
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 40px; position:relative; overflow:hidden;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--teal-deep); background:var(--teal-wash); display:inline-block;
+    padding:5px 11px; border-radius:99px; margin-bottom:18px;
+  }
+  h1{
+    font-family:var(--font-display); font-size:clamp(30px,4.4vw,48px); line-height:1.08;
+    margin:0 0 18px; letter-spacing:-.01em; max-width:16ch;
+  }
+  .hero p.lede{font-size:17px; color:var(--ink-soft); max-width:60ch; margin:0 0 34px;}
+  .stat-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--panel-border); border:1px solid var(--panel-border); border-radius:var(--radius); overflow:hidden;}
+  @media (max-width:760px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
+  .stat{background:var(--panel); padding:22px 20px;}
+  .stat .num{font-family:var(--font-display); font-size:30px; font-weight:700; display:flex; align-items:baseline; gap:6px;}
+  .stat .num small{font-size:14px; color:var(--ink-faint); font-weight:500; font-family:var(--font-body);}
+  .stat .label{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
+  .stat.ok .num{color:var(--ok);}
+  .stat.warn .num{color:var(--warn);}
+  .stat.dev .num{color:var(--dev);}
+  .stat.bad .num{color:var(--bad);}
+
+  /* ---------- sections generic ---------- */
+  section{padding:56px 0;}
+  .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:28px; flex-wrap:wrap;}
+  .section-head h2{font-family:var(--font-display); font-size:26px; margin:0 0 6px;}
+  .section-head p{margin:0; color:var(--ink-soft); max-width:56ch; font-size:14.5px;}
+
+  #atouts{background:var(--bg-zone-com);}
+  #pricing{background:var(--bg-zone-pricing);}
+
+  /* ---------- background Ringover logos (floating watermark, light sections only) ---------- */
+  #hero{ position:relative; overflow:hidden; }
+  .bg-logos{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
+  .bg-logo{position:absolute; mix-blend-mode:multiply; will-change:transform;}
+  .bg-logo-float{width:100%; height:100%;}
+  .bg-logo img{display:block; width:100%; height:100%; object-fit:contain;}
+  .bg-logo.l1 .bg-logo-float{animation:bgLogoFloat1 26s ease-in-out infinite;}
+  .bg-logo.l2 .bg-logo-float{animation:bgLogoFloat2 21s ease-in-out infinite;}
+  .bg-logo.l3 .bg-logo-float{animation:bgLogoFloat3 32s ease-in-out infinite;}
+  @keyframes bgLogoFloat1{0%,100%{transform:translate(0,0) rotate(0deg);} 50%{transform:translate(16px,14px) rotate(6deg);}}
+  @keyframes bgLogoFloat2{0%,100%{transform:translate(0,0) rotate(0deg);} 50%{transform:translate(-14px,18px) rotate(-5deg);}}
+  @keyframes bgLogoFloat3{0%,100%{transform:translate(0,0) rotate(0deg);} 50%{transform:translate(12px,-16px) rotate(4deg);}}
+  @media (prefers-reduced-motion: reduce){ .bg-logo-float{animation:none;} .bg-logo{transition:none;} }
+
+  #hero .bg-logo.l1{width:150px; height:150px; top:-30px; left:4%; opacity:.28;}
+  #hero .bg-logo.l2{width:95px; height:95px; top:30px; right:8%; opacity:.24;}
+  #hero .bg-logo.l3{width:190px; height:190px; bottom:-70px; left:36%; opacity:.18;}
+
+  /* ---------- suite (dark band) ---------- */
+  :root{
+    --airo: #7B7FF5;
+    --airo-deep: #5B5FEF;
+    --empower: #F0A93A;
+    --empower-deep: #C4790A;
+  }
+  .suite-band{
+    position:relative; overflow:hidden; isolation:isolate;
+    background:
+      radial-gradient(600px 320px at 12% -10%, rgba(39,226,215,.20), transparent 60%),
+      radial-gradient(560px 300px at 88% 10%, rgba(123,127,245,.20), transparent 60%),
+      radial-gradient(620px 340px at 55% 110%, rgba(240,169,58,.14), transparent 60%),
+      linear-gradient(180deg, #0A1620 0%, #0C1D26 100%);
+  }
+  .suite-band::before{
+    content:''; position:absolute; inset:0; z-index:-1; opacity:.5; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 75%);
+  }
+  .suite-blobs{position:absolute; inset:0; z-index:0; transition:transform .35s ease-out;}
+  .suite-blob{position:absolute; border-radius:50%; filter:blur(64px); pointer-events:none;}
+  .suite-blob.b1{width:340px; height:340px; opacity:.30; background:var(--teal); top:-90px; left:6%; animation:blobFloat1 17s ease-in-out infinite;}
+  .suite-blob.b2{width:300px; height:300px; opacity:.28; background:var(--airo); top:6%; right:4%; animation:blobFloat2 21s ease-in-out infinite;}
+  .suite-blob.b3{width:360px; height:360px; opacity:.22; background:var(--empower); bottom:-140px; left:36%; animation:blobFloat3 25s ease-in-out infinite;}
+  @keyframes blobFloat1{0%,100%{transform:translate(0,0);} 50%{transform:translate(46px,32px);}}
+  @keyframes blobFloat2{0%,100%{transform:translate(0,0);} 50%{transform:translate(-36px,42px);}}
+  @keyframes blobFloat3{0%,100%{transform:translate(0,0);} 50%{transform:translate(34px,-28px);}}
+  .suite-band .wrap{position:relative; z-index:1;}
+  .suite-band .section-head h2{color:#fff;}
+  .suite-band .section-head p{color:rgba(232,241,244,.68);}
+  .suite-group{margin-top:48px; padding-top:40px; border-top:1px solid rgba(255,255,255,.14);}
+  .suite-group:first-of-type{margin-top:32px; padding-top:0; border-top:none;}
+  .suite-subhead{font-family:var(--font-display); font-size:21px; margin:0 0 8px; color:#fff;}
+  .suite-subhead-intro{font-size:13.6px; color:rgba(232,241,244,.72); margin:0 0 24px; max-width:72ch; line-height:1.55;}
+  .suite-tag{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    padding:4px 10px; border-radius:99px; font-weight:600; align-self:flex-start;
+  }
+
+  /* ---------- team ---------- */
+  .person-grid{
+    display:grid; grid-template-columns:repeat(5, minmax(0,200px)); gap:20px;
+    justify-content:center; max-width:1120px; margin:0 auto;
+  }
+  @media (max-width:1150px){ .person-grid{grid-template-columns:repeat(3, minmax(0,200px)); max-width:660px;} }
+  @media (max-width:700px){ .person-grid{grid-template-columns:repeat(2, minmax(0,200px)); max-width:440px;} }
+  @media (max-width:480px){ .person-grid{grid-template-columns:minmax(0,220px); max-width:260px;} }
+  .person-card{
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius);
+    padding:26px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;
+    transition:background-color .2s ease, border-color .2s ease;
+  }
+  .person-card:hover{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2);}
+  .person-card .avatar{
+    width:104px; height:104px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:700; font-size:28px; color:rgba(232,241,244,.85);
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+    overflow:hidden; margin-bottom:6px;
+  }
+  .person-card .avatar img{width:100%; height:100%; object-fit:cover; display:block;}
+  .person-card .suite-tag{background:rgba(255,255,255,.1); color:rgba(232,241,244,.85); border:1px solid rgba(255,255,255,.18); align-self:center;}
+  .person-card h3{color:#fff; margin:0; font-size:19px; font-family:var(--font-display);}
+  .person-card p{color:rgba(232,241,244,.72); margin:0; font-size:13.6px;}
+
+  /* ---------- account overview meta ---------- */
+  .phase-meta{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px;}
+  .phase-meta.cols-2{grid-template-columns:repeat(2,1fr);}
+  @media (max-width:760px){ .phase-meta{grid-template-columns:1fr;} }
+  .phase-meta-item{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius-sm); padding:16px 18px;}
+  .phase-meta-item .k{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin-bottom:6px;}
+  .phase-meta-item .v{font-size:13.6px; color:var(--ink); font-weight:600; line-height:1.45;}
+
+  /* ---------- deployment timeline (progress bar) ---------- */
+  .count-note{font-size:12.5px; color:var(--ink-faint); margin-top:12px;}
+  .table-note{font-size:12.5px; color:var(--ink-faint);}
+  .deploy-timeline{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:26px 28px; box-shadow:var(--shadow); margin-top:8px;
+  }
+  .deploy-timeline-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px;}
+  .deploy-timeline-head h3{margin:0; font-size:15.5px; font-family:var(--font-display);}
+  .dt-track{display:flex; position:relative; height:20px; gap:2px;}
+  .dt-seg{height:100%; border-radius:3px; transition:width .6s ease;}
+  .dt-scale{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin:10px 0 22px;}
+  .dt-groups{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media (max-width:760px){ .dt-groups{grid-template-columns:1fr;} }
+  .dt-group-title{font-family:var(--font-mono); font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin-bottom:10px;}
+  .dt-legend{display:flex; flex-direction:column; gap:7px;}
+  .dt-item{display:flex; align-items:center; gap:9px; font-size:12.6px; color:var(--ink-soft);}
+  .dt-item b{margin-left:auto; font-family:var(--font-mono); font-size:11.2px; color:var(--ink); font-weight:600;}
+  .dt-swatch{width:10px; height:10px; border-radius:3px; flex:0 0 auto;}
+  @media (prefers-reduced-motion: reduce){ .dt-seg{transition:none;} }
+
+  /* ---------- journey timeline: dates/steps integrated above a single progress bar ---------- */
+  .dt-journey{display:flex; align-items:flex-end; gap:0; margin:8px 0 0;}
+  .dt-step{flex:1 1 0; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 6px; position:relative;}
+  .dt-step-date{font-family:var(--font-mono); font-weight:700; font-size:11.5px; color:var(--ink); margin-bottom:4px; white-space:nowrap;}
+  .dt-step-desc{font-size:11.2px; color:var(--ink-soft); line-height:1.35; min-height:46px;}
+  .dt-step-connector{width:2px; height:16px; background:var(--panel-border); margin-top:8px;}
+  .dt-step.success .dt-step-date{color:var(--ok);}
+  .dt-step.success .dt-step-connector{background:var(--ok);}
+  .dt-journey-track{display:flex; gap:2px; height:14px; margin-top:0;}
+  .dt-journey-seg{height:100%;}
+  .dt-journey-seg:first-child{border-radius:7px 0 0 7px;}
+  .dt-journey-seg:last-child{border-radius:0 7px 7px 0; display:flex; align-items:center; justify-content:flex-end; padding-right:5px;}
+  .dt-journey-seg:last-child .check{color:#fff; font-size:9px; font-weight:700;}
+  .dt-journey-scale{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:10px;}
+
+  /* ---------- badges (certainty tags) ---------- */
+  .badge{
+    display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600;
+    padding:4px 10px; border-radius:99px; white-space:nowrap;
+  }
+  .badge .d{width:6px; height:6px; border-radius:50%;}
+  .badge.ok{background:var(--ok-bg); color:var(--ok);} .badge.ok .d{background:var(--ok);}
+  .badge.warn{background:var(--warn-bg); color:var(--warn);} .badge.warn .d{background:var(--warn);}
+  .badge.bad{background:var(--bad-bg); color:var(--bad);} .badge.bad .d{background:var(--bad);}
+  .badge.dev{background:var(--dev-bg); color:var(--dev);} .badge.dev .d{background:var(--dev);}
+
+  /* ---------- grid / table ---------- */
+  .table-panel{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+  .table-scroll{overflow-x:auto;}
+  table{width:100%; border-collapse:collapse; min-width:640px;}
+  thead th{
+    text-align:left; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink-faint); padding:12px 16px; border-bottom:1px solid var(--panel-border); background:#FAFBFC;
+    white-space:nowrap;
+  }
+  tbody td{padding:13px 16px; border-bottom:1px solid var(--panel-border); font-size:13.6px; vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:#FBFDFD;}
+  td.chapitre{color:var(--ink-soft); font-size:12.8px;}
+  .table-block{margin-top:32px;}
+  .table-block:first-of-type{margin-top:28px;}
+  .table-block-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap;}
+  .table-block-head h3{font-family:var(--font-display); font-size:16.5px; margin:0;}
+  .table-block-head .table-note{font-size:12.5px; color:var(--ink-faint);}
+  tr.total-row-line td{background:var(--bg-zone-pricing); font-weight:700; color:var(--ink); border-top:2px solid var(--panel-border);}
+
+  /* ---------- strengths (cards) ---------- */
+  .detail-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:760px){ .detail-grid{grid-template-columns:1fr;} }
+  .detail-card{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); padding:20px; display:flex; gap:14px; box-shadow:var(--shadow);}
+  .detail-num{
+    flex:0 0 auto; width:32px; height:32px; border-radius:9px; background:var(--teal-wash); color:var(--teal-deep);
+    font-family:var(--font-display); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center;
+  }
+  .detail-card h4{margin:0 0 8px; font-size:14.5px; font-family:var(--font-display);}
+  .detail-card p{margin:0; font-size:12.8px; color:var(--ink-soft); line-height:1.55;}
+
+  /* ---------- media (video replay) ---------- */
+  .infra-media{margin-top:24px;}
+  .infra-media figure{margin:0;}
+  .infra-media img, .infra-media video{width:100%; height:auto; display:block; border-radius:var(--radius);}
+  .infra-media figcaption{font-size:12px; color:rgba(232,241,244,.6); margin-top:10px; line-height:1.5;}
+  .infra-media.panel-white img{background:#fff; padding:10px; border:1px solid rgba(255,255,255,.12);}
+  .infra-media.video-showcase{max-width:720px; margin-left:auto; margin-right:auto;}
+  .infra-media.video-showcase video{aspect-ratio:16/9; background:#0A1620;}
+
+  /* ---------- SLA ---------- */
+  .sla-list{list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:9px;}
+  .sla-list li{display:flex; align-items:flex-start; gap:10px; font-size:13.2px; color:rgba(232,241,244,.82); line-height:1.55;}
+  .sla-list .dot{flex:0 0 auto; width:6px; height:6px; margin-top:7px; border-radius:50%; background:rgba(232,241,244,.5);}
+  td.prio-cell{white-space:nowrap; font-family:var(--font-mono); font-weight:700;}
+  .suite-band .table-block-head h3{color:#fff;}
+  .suite-band .table-block-head .table-note{color:rgba(232,241,244,.6);}
+  .suite-band .count-note{color:rgba(232,241,244,.55);}
+
+  /* ---------- checklists (Gold accompaniment) ---------- */
+  .infra-list{list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .infra-list li{display:flex; align-items:flex-start; gap:10px; font-size:13.4px; color:rgba(232,241,244,.82); line-height:1.5;}
+  .infra-list .tick{
+    flex:0 0 auto; width:18px; height:18px; margin-top:1px; border-radius:50%;
+    background:color-mix(in srgb, var(--teal) 22%, transparent); color:var(--teal);
+    display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;
+  }
+
+  footer{padding:36px 0 60px; border-top:1px solid var(--panel-border); margin-top:20px;}
+  .footer-row{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
+  footer p{margin:0; font-size:12.5px; color:var(--ink-faint);}
+  footer .foot-brand{font-family:var(--font-display); font-weight:700; color:var(--ink-soft);}
+
+  ::selection{background:var(--teal); color:var(--teal-ink);}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .sync-pill .led::after{animation:none;}
+    .suite-blob{animation:none;}
+    .suite-blobs{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand"><span class="dot"></span> Ringover <span class="x">×</span> <img src="logo-pap.png" alt="PAP" class="brand-logo"></div>
+    <div class="topbar-controls">
+      <div class="sync-pill"><span class="led"></span>Étape : Cadrage</div>
+    </div>
+  </div>
+  <nav class="topnav-wrap">
+    <div class="topnav" id="topNav">
+      <a class="topnav-item active" href="#hero" data-target="hero">Accueil</a>
+      <a class="topnav-item" href="#equipe" data-target="equipe">Équipe</a>
+      <a class="topnav-item" href="#replay" data-target="replay">Revoir notre dernier rdv</a>
+      <a class="topnav-item" href="#atouts" data-target="atouts">Pourquoi Ringover</a>
+      <a class="topnav-item" href="#accompagnement" data-target="accompagnement">Accompagnement</a>
+      <a class="topnav-item" href="#deployment-plan" data-target="deployment-plan">Plan de déploiement</a>
+      <a class="topnav-item" href="#sla" data-target="sla">SLA</a>
+      <a class="topnav-item" href="#pricing" data-target="pricing">Tarification</a>
+    </div>
+  </nav>
+</div>
+
+<header id="hero" class="hero">
+  <div class="bg-logos" aria-hidden="true">
+    <div class="bg-logo l1" data-speed="0.18" data-rotate="4"><div class="bg-logo-float"><img src="ringover_france_logo.jpeg" alt=""></div></div>
+    <div class="bg-logo l2" data-speed="0.10" data-rotate="-4"><div class="bg-logo-float"><img src="ringover_france_logo.jpeg" alt=""></div></div>
+    <div class="bg-logo l3" data-speed="0.24" data-rotate="5"><div class="bg-logo-float"><img src="ringover_france_logo.jpeg" alt=""></div></div>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">Dossier de compte · Onboarding</span>
+    <h1>Le projet Ringover pour PAP</h1>
+    <p class="lede">
+      Cette page suit le dossier Ringover pour PAP (Particulier à Particulier). Le contenu est en cours de
+      construction au fil des éléments transmis ; la première partie ci-dessous couvre l'accompagnement Gold
+      (formation et onboarding).
+    </p>
+  </div>
+</header>
+
+<section id="equipe" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>L'équipe Ringover qui vous accompagne</h2>
+        <p>Les parties prenantes mobilisées sur le dossier PAP.</p>
+      </div>
+    </div>
+    <div class="person-grid">
+      <div class="person-card">
+        <div class="avatar"><img src="photo-sebastien.jpeg" alt="Sébastien Bruno" loading="lazy"></div>
+        <span class="suite-tag">Team Lead Ingénieur Avant-vente</span>
+        <h3>Sébastien Bruno</h3>
+        <p>Pilote le cadrage fonctionnel et technique du dossier PAP.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="photo-remi.png" alt="Rémi Damaisin" loading="lazy"></div>
+        <span class="suite-tag">Commercial</span>
+        <h3>Rémi Damaisin</h3>
+        <p>Assure le suivi commercial du dossier PAP.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="photo-edouard.jpeg" alt="Édouard Chapalain" loading="lazy"></div>
+        <span class="suite-tag">Directeur Commercial France</span>
+        <h3>Édouard Chapalain</h3>
+        <p>Supervise la stratégie commerciale du dossier au niveau France.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="photo-lilia.jpeg" alt="Lilia Payet" loading="lazy"></div>
+        <span class="suite-tag">Customer Success Manager</span>
+        <h3>Lilia Payet</h3>
+        <p>Pilote l'onboarding et l'adoption une fois le contrat signé.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="photo-sybille.jpeg" alt="Sybille Canneau" loading="lazy"></div>
+        <span class="suite-tag">Responsable Portabilité</span>
+        <h3>Sybille Canneau</h3>
+        <p>Pilote l'équipe portabilité Ringover : récupération des documents et bascule des numéros.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="replay" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Revoir notre dernier rdv</h2>
+        <p>Le replay de notre dernier échange avec PAP, pour revenir sur les points abordés.</p>
+      </div>
+    </div>
+
+    <div class="suite-group" style="text-align:center;">
+      <div class="infra-media panel-white video-showcase">
+        <figure>
+          <video controls preload="metadata" playsinline width="1280" height="720">
+            <source src="rdv-pap.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="atouts">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Pourquoi Ringover</h2>
+        <p>Les points forts de la solution mis en avant pour PAP.</p>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-num">1</div>
+        <div>
+          <h4>Stabilité de la solution</h4>
+          <p>SLA engagé, sélection rigoureuse des opérateurs télécom, et une page de statut publique avec historique des incidents résolus.</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-num">2</div>
+        <div>
+          <h4>Accompagnement dédié</h4>
+          <p>Formation complète des équipes et département portabilité dédié pour sécuriser la bascule des numéros.</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-num">3</div>
+        <div>
+          <h4>Ergonomie de la solution</h4>
+          <p>Une interface simple et intuitive, pensée pour une prise en main rapide par les utilisateurs et les administrateurs.</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-num">4</div>
+        <div>
+          <h4>SVI paramétrable</h4>
+          <p>Débordement d'appels, gestion multi-numéro, et règles de routage entièrement configurables.</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-num">5</div>
+        <div>
+          <h4>IA native incluse</h4>
+          <p>Transcription et résumé automatique des appels, inclus nativement sans surcoût.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="accompagnement" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Accompagnement Gold (offert)</h2>
+        <p>Le programme d'onboarding et de suivi inclus avec le contrat, sans surcoût.</p>
+      </div>
+    </div>
+
+    <div class="phase-meta">
+      <div class="phase-meta-item">
+        <div class="k">Formations</div>
+        <div class="v">4 à 6h au total</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Suivi post-formation</div>
+        <div class="v">4 sessions de 30 min : setup check / Q&amp;A</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Cadrage</div>
+        <div class="v">Kick-off call 1h + wrap-up 1h</div>
+      </div>
+    </div>
+
+    <div class="suite-group">
+      <h3 class="suite-subhead">Support &amp; contact</h3>
+      <ul class="infra-list">
+        <li><span class="tick">✓</span><span>Accès Help Center</span></li>
+        <li><span class="tick">✓</span><span>Support technique illimité (tickets &amp; IVR)</span></li>
+        <li><span class="tick">✓</span><span>CSM dédié (ligne directe + mail direct)</span></li>
+      </ul>
+    </div>
+
+    <div class="suite-group">
+      <h3 class="suite-subhead">Onboarding</h3>
+      <ul class="infra-list">
+        <li><span class="tick">✓</span><span>Accès portail d'onboarding (Planhat) + webinars et e-learning illimités</span></li>
+        <li><span class="tick">✓</span><span>Kick-off call 1h</span></li>
+        <li><span class="tick">✓</span><span>Formations 4 à 6h</span></li>
+        <li><span class="tick">✓</span><span>4 sessions de 30 min : setup check / Q&amp;A</span></li>
+        <li><span class="tick">✓</span><span>Onboarding wrap-up 1h</span></li>
+      </ul>
+    </div>
+
+    <div class="suite-group">
+      <h3 class="suite-subhead">Suivi</h3>
+      <ul class="infra-list">
+        <li><span class="tick">✓</span><span>Newsletter mensuelle + campagnes marketing/produit</span></li>
+        <li><span class="tick">✓</span><span>Business Reviews trimestrielles avec le CSM</span></li>
+        <li><span class="tick">✓</span><span>Accompagnement continu avec le CSM pour faire évoluer votre solution selon vos besoins, et préparer sereinement le renouvellement</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="deployment-plan">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Plan de déploiement</h2>
+        <p>Du kick-off à la fin de l'onboarding : la chronologie de l'accompagnement Gold pour PAP.</p>
+      </div>
+    </div>
+
+    <div class="deploy-timeline" role="img" aria-label="Chronologie du déploiement, de la décision vendredi jusqu'à la fin de l'onboarding en novembre">
+      <div class="deploy-timeline-head">
+        <h3>Chronologie du déploiement</h3>
+        <span class="table-note">De la décision à la mise en route complète</span>
+      </div>
+
+      <div class="dt-journey">
+        <div class="dt-step">
+          <div class="dt-step-date">Vendredi</div>
+          <div class="dt-step-desc">Décision interne de PAP + créneau de portabilité (10h)</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">15 septembre</div>
+          <div class="dt-step-desc">Décision interne PAP</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">20 septembre</div>
+          <div class="dt-step-desc">Signature &amp; ouverture des accès, kick-off call (1h)</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">Semaine suivante</div>
+          <div class="dt-step-desc">Reprise après congés, formations (4 à 6h)</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">Mi-octobre</div>
+          <div class="dt-step-desc">Migration des numéros + suivi (4 x 30 min)</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">Novembre</div>
+          <div class="dt-step-desc">Installation service client, onboarding wrap-up (1h)</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step success">
+          <div class="dt-step-date">Fin d'onboarding</div>
+          <div class="dt-step-desc">Projet déployé, équipes autonomes ✓</div>
+          <div class="dt-step-connector"></div>
+        </div>
+      </div>
+
+      <div class="dt-journey-track">
+        <div class="dt-journey-seg" style="width:14.29%; background:#8FF0EA"></div>
+        <div class="dt-journey-seg" style="width:14.29%; background:#6AC0BB"></div>
+        <div class="dt-journey-seg" style="width:14.29%; background:#51A09B"></div>
+        <div class="dt-journey-seg" style="width:14.29%; background:#38807C"></div>
+        <div class="dt-journey-seg" style="width:14.29%; background:#1F605C"></div>
+        <div class="dt-journey-seg" style="width:14.28%; background:#06403D"></div>
+        <div class="dt-journey-seg" style="width:14.28%; background:var(--ok);"><span class="check">✓</span></div>
+      </div>
+      <div class="dt-journey-scale">
+        <span>Aujourd'hui</span>
+        <span>Projet déployé avec succès</span>
+      </div>
+
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Jalons mentionnés en détail</h3>
+        <span class="table-note">Dates / périodes explicitement évoquées dans l'échange</span>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Date / période</th><th>Sujet</th><th>Ce qui a été dit</th><th>Certitude</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Vendredi</td>
+                <td>Décision interne</td>
+                <td class="chapitre">Vous avez indiqué qu'une décision devait être prise ce vendredi.</td>
+                <td><span class="badge ok"><span class="d"></span>Confirmé</span></td>
+              </tr>
+              <tr>
+                <td>Vendredi 10h</td>
+                <td>Portabilité</td>
+                <td class="chapitre">La portabilité est décrite comme se faisant à une date et une heure précises, souvent le vendredi à 10h, avec vérification des appels après coup.</td>
+                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+              </tr>
+              <tr>
+                <td>Avant le 15 septembre</td>
+                <td>Décision interne PAP</td>
+                <td class="chapitre">Une slide évoque une décision interne avant le 15 septembre.</td>
+                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+              </tr>
+              <tr>
+                <td>À partir du 20 septembre</td>
+                <td>Signature / lancement du process</td>
+                <td class="chapitre">Le suivi indique qu'ensuite on entre dans le process de signature et l'ouverture des accès.</td>
+                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+              </tr>
+              <tr>
+                <td>La semaine suivante</td>
+                <td>Reprise après congés</td>
+                <td class="chapitre">Il est dit que la suite du projet reprendra après une semaine de congés.</td>
+                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+              </tr>
+              <tr>
+                <td>Octobre</td>
+                <td>Déploiement / migration</td>
+                <td class="chapitre">Le mois d'octobre est cité comme repère pour la suite du projet et la migration.</td>
+                <td><span class="badge dev"><span class="d"></span>Indicatif</span></td>
+              </tr>
+              <tr>
+                <td>Mi-octobre</td>
+                <td>Migration des numéros</td>
+                <td class="chapitre">Un passage évoque mi-octobre comme point de repère, avec l'idée que la migration des numéros n'a pas encore eu lieu à ce moment-là.</td>
+                <td><span class="badge dev"><span class="d"></span>Indicatif</span></td>
+              </tr>
+              <tr>
+                <td>Novembre</td>
+                <td>Service client / installation</td>
+                <td class="chapitre">Il est mentionné que novembre correspondrait à l'installation et au déploiement de la solution sur un ou plusieurs numéros parisiens.</td>
+                <td><span class="badge dev"><span class="d"></span>Indicatif</span></td>
+              </tr>
+              <tr>
+                <td>Pendant la portabilité</td>
+                <td>Continuité de service</td>
+                <td class="chapitre">Vous avez demandé s'il y aurait une coupure ; la réponse indique une indisponibilité possible de quelques minutes sur certains opérateurs, mais pas une interruption longue.</td>
+                <td><span class="badge warn"><span class="d"></span>Estimé</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="count-note">
+        Déploiement : pas de date ferme unique annoncée ; les repères les plus concrets sont mi-octobre et novembre.
+        Portabilité : opération cadrée à un créneau précis, souvent vendredi 10h, avec une micro-indisponibilité possible sur certains opérateurs.
+        Décision / suite du projet : décision attendue ce vendredi, puis reprise du projet après la semaine de congés.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="sla" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Accord de niveau de service (SLA)</h2>
+        <p>Délais de réponse support, engagement de disponibilité et crédits de service, issus du SLA standard de Ringover (Annexe 5, 18 juin 2025).</p>
+      </div>
+    </div>
+
+    <div class="phase-meta">
+      <div class="phase-meta-item">
+        <div class="k">Objectif de disponibilité</div>
+        <div class="v">99,95 % de disponibilité mensuelle</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Signalement d'incident</div>
+        <div class="v">24h/24, 7j/7, à support@ringover.com</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Objectif de rétablissement</div>
+        <div class="v">Dans les 2 heures suivant le signalement</div>
+      </div>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Niveaux de priorité &amp; délais de réponse</h3>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Priorité</th><th>Définition</th><th>Réponse initiale</th><th>Ce qui se passe ensuite</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="prio-cell">P1</td>
+                <td>Anomalie majeure : Services inutilisables</td>
+                <td><span class="badge bad"><span class="d"></span>2h</span></td>
+                <td class="chapitre">Heure 1 : le support niveau 1 qualifie &amp; escalade au niveau 2. Heures 2 à 6 : le niveau 2 reproduit et travaille sur la résolution ; un contournement peut être fourni. Heures 6 à 8 : le Directeur Technique &amp; le Chief Customer Officer sont informés et une équipe de spécialistes est mobilisée.</td>
+              </tr>
+              <tr>
+                <td class="prio-cell">P2</td>
+                <td>Anomalie bloquante sur une fonctionnalité majeure</td>
+                <td><span class="badge warn"><span class="d"></span>4h</span></td>
+                <td class="chapitre">Heures 1 à 2 : le niveau 1 qualifie &amp; escalade. Jours 1 et 2 : les niveaux 2/3 travaillent avec l'équipe de développement sur un contournement ou une résolution.</td>
+              </tr>
+              <tr>
+                <td class="prio-cell">P3</td>
+                <td>Anomalie mineure, sans impact significatif</td>
+                <td><span class="badge dev"><span class="d"></span>1 jour</span></td>
+                <td class="chapitre">Traitée par l'équipe support sous une semaine.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="count-note">La qualification de priorité par RINGOVER prévaut sur celle de PAP. Plan d'action en moyens, pendant les horaires ouvrés du support, sur les plateformes de production.</p>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Exclusions du SLA</h3>
+      </div>
+      <ul class="sla-list">
+        <li><span class="dot"></span><span>Facteurs hors du contrôle raisonnable de Ringover : incidents du fournisseur d'hébergement/datacenter, du FAI ou d'un opérateur télécom en dehors du réseau de Ringover</span></li>
+        <li><span class="dot"></span><span>Tout acte ou omission de PAP ou d'un tiers</span></li>
+        <li><span class="dot"></span><span>Équipement, application, logiciel ou autre technologie de PAP ou d'un tiers</span></li>
+        <li><span class="dot"></span><span>Maintenance planifiée ou d'urgence par Ringover</span></li>
+        <li><span class="dot"></span><span>Force majeure</span></li>
+        <li><span class="dot"></span><span>Utilisation d'une version obsolète ou dépassée de l'application mobile Ringover</span></li>
+      </ul>
+    </div>
+
+    <p class="count-note" style="margin-top:20px;">
+      Ce SLA ne s'applique pas aux services Empower ni pendant une période d'essai gratuit. Source : SLA Ringover Inc., Annexe 5, 18 juin 2025, conditions complètes disponibles sur demande.
+    </p>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Tarification</h2>
+        <p>Le détail de votre abonnement, issu du bon de commande émis le 28 août 2026 (valable jusqu'au 18 septembre 2026).</p>
+      </div>
+    </div>
+
+    <div class="phase-meta">
+      <div class="phase-meta-item">
+        <div class="k">Engagement</div>
+        <div class="v">24 mois</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Facturation</div>
+        <div class="v">Annuelle, par prélèvement automatique</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Total abonnement mensuel HT</div>
+        <div class="v">4 530,60 €</div>
+      </div>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Détail de l'abonnement</h3>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Licence</th><th>Prix unitaire</th><th>Quantité</th><th>Total</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Licence SMART 2023 (24 mois)</td>
+                <td>15,00 €</td>
+                <td>75</td>
+                <td>1 125,00 €</td>
+              </tr>
+              <tr>
+                <td>Licence BUSINESS (24 mois)</td>
+                <td>39,60 €</td>
+                <td>86</td>
+                <td>3 405,60 €</td>
+              </tr>
+              <tr class="total-row-line">
+                <td>Total abonnement mensuel HT</td>
+                <td></td>
+                <td>161</td>
+                <td>4 530,60 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-meta cols-2" style="margin-top:32px;">
+      <div class="phase-meta-item">
+        <div class="k">Total première facture (prépaiement 12 mois)</div>
+        <div class="v">54 367,20 €</div>
+      </div>
+      <div class="phase-meta-item">
+        <div class="k">Total sur l'engagement (24 mois)</div>
+        <div class="v">108 734,40 €</div>
+      </div>
+    </div>
+
+    <p class="count-note">Montants exprimés hors taxes (HT). Le présent récapitulatif est régi par les Conditions Générales de Vente et de Services de Ringover, disponibles sur ringover.fr/cgv.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <p class="foot-brand">Ringover × PAP</p>
+    <p>Dossier de compte en cours de construction.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- top nav: scroll spy + smooth scroll ---------- */
+(function initTopNav(){
+  const navWrap = document.getElementById("topNav");
+  const navItems = Array.from(document.querySelectorAll(".topnav-item"));
+  if(!navItems.length) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setActive(id){
+    navItems.forEach(item => item.classList.toggle("active", item.dataset.target === id));
+    const current = navItems.find(item => item.dataset.target === id);
+    if(current && navWrap){
+      current.scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "center"});
+    }
+  }
+
+  navItems.forEach(item => {
+    item.addEventListener("click", e => {
+      e.preventDefault();
+      const target = document.getElementById(item.dataset.target);
+      if(!target) return;
+      const topbar = document.querySelector(".topbar");
+      const offset = (topbar ? topbar.offsetHeight : 0) + 14;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({top: Math.max(y, 0), behavior: reduceMotion ? "auto" : "smooth"});
+      setActive(item.dataset.target);
+    });
+  });
+
+  const sections = navItems.map(item => document.getElementById(item.dataset.target)).filter(Boolean);
+
+  if("IntersectionObserver" in window && sections.length){
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {rootMargin: "-15% 0px -70% 0px", threshold: 0});
+    sections.forEach(section => spy.observe(section));
+  }
+})();
+
+/* ---------- background Ringover logos: scroll parallax drift ---------- */
+(function initBgLogosScrollParallax(){
+  const logos = Array.from(document.querySelectorAll(".bg-logo"));
+  if(!logos.length) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduceMotion) return;
+  let ticking = false;
+  function update(){
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    logos.forEach(logo => {
+      const rect = logo.getBoundingClientRect();
+      const centerOffset = (rect.top + rect.height / 2) - vh / 2;
+      const speed = parseFloat(logo.dataset.speed || "0.14");
+      const rotateMax = parseFloat(logo.dataset.rotate || "0");
+      const y = centerOffset * -speed;
+      const rotate = rotateMax * (centerOffset / vh);
+      logo.style.transform = `translateY(${y}px) rotate(${rotate}deg)`;
+    });
+    ticking = false;
+  }
+  function onScroll(){
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  update();
+})();
+
+/* ---------- suite-band: blob mouse-follow drift ---------- */
+(function initSuiteInteractions(){
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduceMotion) return;
+  document.querySelectorAll(".suite-band").forEach(band => {
+    const blobs = band.querySelector(".suite-blobs");
+    if(!blobs) return;
+    band.addEventListener("pointermove", e => {
+      const r = band.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      blobs.style.transform = `translate(${px * 30}px, ${py * 22}px)`;
+    });
+    band.addEventListener("pointerleave", () => {
+      blobs.style.transform = "translate(0,0)";
+    });
+  });
+})();
+</script>
+</body>
+</html>
