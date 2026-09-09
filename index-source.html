@@ -380,6 +380,9 @@
   .comprehension-icon svg{width:20px; height:20px;}
   .comprehension-item h4{margin:0 0 4px; font-size:13.5px; font-family:var(--font-display); color:var(--ink); font-weight:600;}
   .comprehension-item p{margin:0; font-size:14px; color:var(--ink-soft); line-height:1.6;}
+  .comprehension-subhead{padding-top:26px; margin-top:4px; border-top:1px solid var(--panel-border);}
+  .comprehension-subhead h3{margin:0 0 6px; font-size:16.5px; font-family:var(--font-display); color:var(--ink);}
+  .comprehension-subhead p{margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.6;}
   @media (max-width:560px){
     .comprehension-item{gap:10px; padding-left:12px;}
     .comprehension-icon svg{width:18px; height:18px;}
@@ -499,7 +502,6 @@
       <a class="topnav-item" href="#atouts" data-target="atouts">Pourquoi Ringover</a>
       <a class="topnav-item" href="#accompagnement" data-target="accompagnement">Accompagnement &amp; déploiement</a>
       <a class="topnav-item" href="#sla" data-target="sla">SLA</a>
-      <a class="topnav-item" href="#network" data-target="network">Réseau</a>
       <a class="topnav-item" href="#references" data-target="references">Références</a>
       <a class="topnav-item" href="#pricing" data-target="pricing">Tarification</a>
       <a class="topnav-item" href="#roadmap" data-target="roadmap">Pour aller plus loin</a>
@@ -662,7 +664,39 @@
           <p>Enfin, vous voyez un vrai intérêt à mieux exploiter le contenu de vos appels, pour la qualité de service et pour la formation de vos équipes, sans faire grimper la facture avec des options en plus.</p>
         </div>
       </div>
+
+      <div class="comprehension-subhead">
+        <h3>Votre réseau, prêt pour la bascule</h3>
+        <p>Un sujet revenu plusieurs fois dans nos échanges : la capacité de votre réseau à absorber plusieurs appels simultanés sans dégradation. Voici de quoi le vérifier avec des repères concrets.</p>
+      </div>
+
+      <div class="comprehension-item">
+        <div class="comprehension-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0-8-8"/><path d="M12 12l4-4"/><path d="M4 20h16"/></svg></div>
+        <div>
+          <h4>Débit recommandé</h4>
+          <p>Plus de 2 Mbps en upload et en download, par utilisateur en communication simultanément. Pour dimensionner votre lien, multipliez ce chiffre par le nombre maximum de postes qui pourraient être en appel en même temps chez vous.</p>
+        </div>
+      </div>
+      <div class="comprehension-item">
+        <div class="comprehension-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4"/><path d="M15 2v4"/><path d="M7 6h10l-1 7a4 4 0 0 1-4 4h0a4 4 0 0 1-4-4z"/><path d="M12 17v5"/></svg></div>
+        <div>
+          <h4>Type de connexion</h4>
+          <p>SDSL ou fibre, avec une connectivité filaire en Ethernet. Le Wi-Fi n'est pas recommandé pour les postes en communication : c'est une source classique d'instabilité dès que la charge augmente.</p>
+        </div>
+      </div>
+      <div class="comprehension-item">
+        <div class="comprehension-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div>
+          <h4>Vérifier avant la bascule, pas seulement en test</h4>
+          <p>Un POC valide les usages, pas la charge réelle à l'échelle de vos effectifs. Avant le passage en production, le Speed Test Ringover permet de vérifier la qualité de connexion poste par poste, pour avoir une réponse chiffrée avant la bascule plutôt qu'après.</p>
+          <a class="speedtest-link" href="https://ringover.speedtestcustom.com/" target="_blank" rel="noopener">
+            Lancer le Speed Test Ringover
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
+    <p class="count-note" style="margin-top:24px;">Le document complet des prérequis techniques (poste de travail, navigateur, casque) peut être revu en détail avec Sébastien avant la signature.</p>
   </div>
 </section>
 
@@ -1025,45 +1059,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="network">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Votre réseau, prêt pour la bascule</h2>
-        <p>Un sujet revenu plusieurs fois dans nos échanges : la capacité de votre réseau à absorber plusieurs appels simultanés sans dégradation. Voici de quoi le vérifier avec des repères concrets.</p>
-      </div>
-    </div>
-    <div class="comprehension-list">
-      <div class="comprehension-item">
-        <div class="comprehension-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0-8-8"/><path d="M12 12l4-4"/><path d="M4 20h16"/></svg></div>
-        <div>
-          <h4>Débit recommandé</h4>
-          <p>Plus de 2 Mbps en upload et en download, par utilisateur en communication simultanément. Pour dimensionner votre lien, multipliez ce chiffre par le nombre maximum de postes qui pourraient être en appel en même temps chez vous.</p>
-        </div>
-      </div>
-      <div class="comprehension-item">
-        <div class="comprehension-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4"/><path d="M15 2v4"/><path d="M7 6h10l-1 7a4 4 0 0 1-4 4h0a4 4 0 0 1-4-4z"/><path d="M12 17v5"/></svg></div>
-        <div>
-          <h4>Type de connexion</h4>
-          <p>SDSL ou fibre, avec une connectivité filaire en Ethernet. Le Wi-Fi n'est pas recommandé pour les postes en communication : c'est une source classique d'instabilité dès que la charge augmente.</p>
-        </div>
-      </div>
-      <div class="comprehension-item">
-        <div class="comprehension-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <div>
-          <h4>Vérifier avant la bascule, pas seulement en test</h4>
-          <p>Un POC valide les usages, pas la charge réelle à l'échelle de vos effectifs. Avant le passage en production, le Speed Test Ringover permet de vérifier la qualité de connexion poste par poste, pour avoir une réponse chiffrée avant la bascule plutôt qu'après.</p>
-          <a class="speedtest-link" href="https://ringover.speedtestcustom.com/" target="_blank" rel="noopener">
-            Lancer le Speed Test Ringover
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <p class="count-note" style="margin-top:24px;">Le document complet des prérequis techniques (poste de travail, navigateur, casque) peut être revu en détail avec Sébastien avant la signature.</p>
   </div>
 </section>
 
