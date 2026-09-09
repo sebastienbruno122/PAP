@@ -375,6 +375,15 @@
   .reference-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
   @media (max-width:760px){ .reference-grid{grid-template-columns:1fr;} }
 
+  /* ---------- trust logos (lightweight, not a card grid) ---------- */
+  .trust-logos-row{display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap;}
+  .trust-logo-placeholder{
+    display:flex; align-items:center; justify-content:center;
+    width:190px; height:60px; border:1px dashed var(--ink-faint); border-radius:var(--radius-sm);
+    color:var(--ink-faint); font-family:var(--font-display); font-weight:600; font-size:14px;
+    background:#FAFBFC;
+  }
+
   /* ---------- deadline callout ---------- */
   .deadline-callout{
     display:flex; align-items:center; gap:12px; background:var(--warn-bg); border:1px solid rgba(196,121,10,.25);
@@ -631,6 +640,23 @@
         <p>Transcription et résumé automatique des appels, inclus nativement sans surcoût.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!--
+  Logos Foncia et Figaro Classifieds : usage dans un dossier de compte tiers (PAP) à
+  faire valider en interne (marketing/juridique) avant mise en ligne publique de cette
+  page. Ne pas publier sans validation. Remplacer les blocs .trust-logo-placeholder
+  ci-dessous par les fichiers logo officiels une fois obtenus.
+-->
+<section id="trust-logos" style="padding-top:32px; padding-bottom:32px;">
+  <div class="wrap" style="text-align:center;">
+    <h2 style="font-family:var(--font-display); font-size:20px; margin:0 0 24px;">Ils nous font aussi confiance</h2>
+    <div class="trust-logos-row">
+      <div class="trust-logo-placeholder">[Logo Foncia]</div>
+      <div class="trust-logo-placeholder">[Logo Figaro Classifieds]</div>
+    </div>
+    <p class="count-note" style="max-width:60ch; margin:16px auto 0;">Foncia, l'un des leaders français de la gestion immobilière, et Figaro Classifieds, acteur des petites annonces, utilisent Ringover au quotidien.</p>
   </div>
 </section>
 
