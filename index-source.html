@@ -253,10 +253,14 @@
   @media (prefers-reduced-motion: reduce){ .dt-seg{transition:none;} }
 
   /* ---------- journey timeline: dates/steps integrated above a single progress bar ---------- */
+  .dt-journey-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
   .dt-journey{display:flex; align-items:flex-end; gap:0; margin:8px 0 0;}
-  .dt-step{flex:1 1 0; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 6px; position:relative;}
-  .dt-step-date{font-family:var(--font-mono); font-weight:700; font-size:11.5px; color:var(--ink); margin-bottom:4px; white-space:nowrap;}
-  .dt-step-desc{font-size:11.2px; color:var(--ink-soft); line-height:1.35; min-height:46px;}
+  @media (max-width:760px){
+    .dt-journey, .dt-journey-track{min-width:640px;}
+  }
+  .dt-step{flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 5px; position:relative;}
+  .dt-step-date{font-family:var(--font-mono); font-weight:700; font-size:10.5px; color:var(--ink); margin-bottom:4px; line-height:1.3; overflow-wrap:break-word; hyphens:auto;}
+  .dt-step-desc{font-size:10.8px; color:var(--ink-soft); line-height:1.35; min-height:46px; overflow-wrap:break-word;}
   .dt-step-connector{width:2px; height:16px; background:var(--panel-border); margin-top:8px;}
   .dt-step.success .dt-step-date{color:var(--ok);}
   .dt-step.success .dt-step-connector{background:var(--ok);}
@@ -338,6 +342,17 @@
     text-transform:uppercase; color:var(--teal-ink); background:rgba(255,255,255,.65); padding:3px 9px;
     border-radius:99px; margin-bottom:7px;
   }
+  .detail-card.gift{
+    border-color:var(--ok); background:linear-gradient(135deg, var(--ok-bg) 0%, var(--panel) 60%);
+    box-shadow:0 4px 20px -8px rgba(27,156,87,.35), var(--shadow);
+  }
+  .detail-card.gift .detail-icon{background:var(--ok); color:#fff;}
+  .gift-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; color:#0B5C33; background:rgba(255,255,255,.7); padding:3px 9px;
+    border-radius:99px; margin-bottom:7px;
+  }
+  .gift-intro{margin:24px 0 12px; font-size:13px; color:var(--ink-soft);}
 
   /* ---------- media (video replay) ---------- */
   .infra-media{margin-top:24px;}
@@ -787,6 +802,26 @@
         <p>Transcription et résumé automatique des appels, inclus nativement sans surcoût.</p>
       </div>
     </div>
+
+    <p class="gift-intro">En plus de votre offre, un geste commercial pour démarrer votre projet dans les meilleures conditions :</p>
+    <div class="detail-grid">
+      <div class="detail-card gift">
+        <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6l-4 4H4a1 1 0 0 0-1 1z"/><path d="M16 8a4 4 0 0 1 0 8"/><path d="M19 5a8 8 0 0 1 0 14"/></svg></div>
+        <div>
+          <span class="gift-tag">Offert</span>
+          <h4>Campagnes d'appels et SMS</h4>
+          <p>Appels et SMS massifs pour vos campagnes commerciales ou de relance, offerts pour démarrer votre projet.</p>
+        </div>
+      </div>
+      <div class="detail-card gift">
+        <div class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 13h6"/><path d="M9 17h6"/><path d="M9 9h2"/></svg></div>
+        <div>
+          <span class="gift-tag">Offert</span>
+          <h4>Scripts affichés en direct</h4>
+          <p>Une trame ou une base de connaissances accessible directement pendant l'appel, offerte pour guider vos conseillers en temps réel.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -852,12 +887,13 @@
       <h3 class="suite-subhead">Plan de déploiement</h3>
       <p class="suite-subhead-intro">Du kick-off à la fin de l'onboarding : la chronologie de l'accompagnement Gold pour PAP.</p>
 
-    <div class="deploy-timeline" role="img" aria-label="Chronologie du déploiement, de la décision vendredi jusqu'à la fin de l'onboarding en novembre">
+    <div class="deploy-timeline" role="img" aria-label="Chronologie du déploiement, de la décision vendredi jusqu'à la portabilité du service client en novembre">
       <div class="deploy-timeline-head">
         <h3>Chronologie du déploiement</h3>
         <span class="table-note">De la décision à la mise en route complète</span>
       </div>
 
+      <div class="dt-journey-scroll">
       <div class="dt-journey">
         <div class="dt-step current">
           <span class="dt-step-here">Vous êtes ici</span>
@@ -866,43 +902,56 @@
           <div class="dt-step-connector"></div>
         </div>
         <div class="dt-step">
-          <div class="dt-step-date">20 septembre</div>
-          <div class="dt-step-desc">Signature &amp; ouverture des accès, kick-off call (1h)</div>
+          <div class="dt-step-date">Semaine du 14 au 18 septembre</div>
+          <div class="dt-step-desc">Signature &amp; lancement du process d'onboarding de notre côté (La Fleur en vacances)</div>
           <div class="dt-step-connector"></div>
         </div>
         <div class="dt-step">
-          <div class="dt-step-date">Semaine suivante</div>
-          <div class="dt-step-desc">Reprise après congés, formations (4 à 6h)</div>
+          <div class="dt-step-date">Semaine du 21 au 25 septembre</div>
+          <div class="dt-step-desc">Lancement du projet (kick-off)</div>
           <div class="dt-step-connector"></div>
         </div>
         <div class="dt-step">
-          <div class="dt-step-date">Mi-octobre</div>
-          <div class="dt-step-desc">Migration des numéros (créneau habituel : vendredi 10h) + suivi (4 x 30 min)</div>
+          <div class="dt-step-date">Semaine du 28 sept. au 2 oct.</div>
+          <div class="dt-step-desc">Formation Admin, création des utilisateurs</div>
           <div class="dt-step-connector"></div>
         </div>
         <div class="dt-step">
-          <div class="dt-step-date">Novembre</div>
-          <div class="dt-step-desc">Installation service client, onboarding wrap-up (1h)</div>
+          <div class="dt-step-date">Semaine du 5 au 9 octobre</div>
+          <div class="dt-step-desc">Configurations SVI, setup check / Q&amp;A</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">Semaine du 12 au 16 octobre</div>
+          <div class="dt-step-desc">Formation des utilisateurs, check / Q&amp;A</div>
+          <div class="dt-step-connector"></div>
+        </div>
+        <div class="dt-step">
+          <div class="dt-step-date">Mi-fin octobre</div>
+          <div class="dt-step-desc">Go live (mise en production)</div>
           <div class="dt-step-connector"></div>
         </div>
         <div class="dt-step success">
-          <div class="dt-step-date">Fin d'onboarding</div>
-          <div class="dt-step-desc">Déploiement finalisé, équipes autonomes (objectif)</div>
+          <div class="dt-step-date">Novembre</div>
+          <div class="dt-step-desc">Portabilité du service client (en une ou plusieurs fois)</div>
           <div class="dt-step-connector"></div>
         </div>
       </div>
 
       <div class="dt-journey-track">
-        <div class="dt-journey-seg" style="width:16.67%; background:#8FF0EA"></div>
-        <div class="dt-journey-seg" style="width:16.67%; background:#6AC0BB"></div>
-        <div class="dt-journey-seg" style="width:16.67%; background:#51A09B"></div>
-        <div class="dt-journey-seg" style="width:16.67%; background:#38807C"></div>
-        <div class="dt-journey-seg" style="width:16.66%; background:#1F605C"></div>
-        <div class="dt-journey-seg" style="width:16.66%; background:var(--ok);"><span class="check">✓</span></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#8FF0EA"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#7CD8D2"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#6AC0BB"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#57A8A3"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#44908B"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#327874"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:#1F605C"></div>
+        <div class="dt-journey-seg" style="width:12.5%; background:var(--ok);"><span class="check">✓</span></div>
       </div>
       <div class="dt-journey-scale">
         <span>Aujourd'hui : cadrage &amp; décision</span>
         <span>Objectif : déploiement finalisé</span>
+      </div>
       </div>
 
     </div>
@@ -925,42 +974,48 @@
                 <td class="chapitre">Vous avez indiqué qu'une décision serait prise ce vendredi, au plus tard avant le 15 septembre. <span class="badge ok"><span class="d"></span>Confirmé</span></td>
               </tr>
               <tr>
-                <td>Vendredi 10h</td>
-                <td>Portabilité</td>
-                <td class="chapitre">La portabilité est calée sur un créneau précis, généralement le vendredi à 10h, avec vérification des appels après coup.</td>
+                <td>Semaine du 14 au 18 septembre</td>
+                <td>Signature / lancement du process d'onboarding</td>
+                <td class="chapitre">Le process de signature et de lancement de l'onboarding démarre côté Ringover cette semaine-là (La Fleur en vacances).</td>
               </tr>
               <tr>
-                <td>À partir du 20 septembre</td>
-                <td>Signature / lancement du process</td>
-                <td class="chapitre">Le process de signature démarre à cette date, avec ouverture des accès.</td>
+                <td>Semaine du 21 au 25 septembre</td>
+                <td>Lancement du projet</td>
+                <td class="chapitre">Kick-off officiel du projet.</td>
               </tr>
               <tr>
-                <td>La semaine suivante</td>
-                <td>Reprise après congés</td>
-                <td class="chapitre">Le projet reprend après une semaine de congés.</td>
+                <td>Semaine du 28 sept. au 2 oct.</td>
+                <td>Formation Admin</td>
+                <td class="chapitre">Formation des administrateurs et création des utilisateurs dans l'outil.</td>
               </tr>
               <tr>
-                <td>Mi-octobre</td>
-                <td>Migration des numéros</td>
-                <td class="chapitre">La migration des numéros est prévue à cette période ; elle n'a pas encore eu lieu à ce stade.</td>
+                <td>Semaine du 5 au 9 octobre</td>
+                <td>Configurations SVI</td>
+                <td class="chapitre">Paramétrage du SVI, puis setup check / Q&amp;A.</td>
+              </tr>
+              <tr>
+                <td>Semaine du 12 au 16 octobre</td>
+                <td>Formation des utilisateurs</td>
+                <td class="chapitre">Formation des utilisateurs finaux, puis nouveau setup check / Q&amp;A.</td>
+              </tr>
+              <tr>
+                <td>Mi-fin octobre</td>
+                <td>Go live</td>
+                <td class="chapitre">Mise en production de la solution.</td>
               </tr>
               <tr>
                 <td>Novembre</td>
-                <td>Service client / installation</td>
-                <td class="chapitre">Installation et déploiement de la solution sur un ou plusieurs numéros parisiens.</td>
-              </tr>
-              <tr>
-                <td>Pendant la portabilité</td>
-                <td>Continuité de service</td>
-                <td class="chapitre">Vous avez demandé s'il y aurait une coupure ; la réponse indique une indisponibilité possible de quelques minutes sur certains opérateurs, mais pas une interruption longue.</td>
+                <td>Portabilité du service client</td>
+                <td class="chapitre">Portabilité des numéros du service client, en une ou plusieurs fois.</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <p class="count-note">
-        Seule la décision du vendredi 11 septembre est confirmée. Les autres dates (20 septembre, mi-octobre, novembre)
-        sont des repères indicatifs évoqués à l'oral, à reconfirmer au fil du projet.
+        Seule la décision du vendredi 11 septembre est confirmée. Les autres dates (semaines de septembre-octobre,
+        go live mi-fin octobre, portabilité en novembre) sont des repères indicatifs évoqués à l'oral, à reconfirmer
+        au fil du projet.
       </p>
     </div>
 
@@ -985,7 +1040,7 @@
           <p class="action-plan-sub">Actions attendues côté PAP</p>
           <ul class="action-plan-list">
             <li>Valider la décision interne avant le 15 septembre<span class="action-plan-owner">La Fleur Degbe</span></li>
-            <li>Signer le bon de commande à partir du 20 septembre<span class="action-plan-owner">La Fleur Degbe</span></li>
+            <li>Signer le bon de commande la semaine du 14 au 18 septembre<span class="action-plan-owner">La Fleur Degbe</span></li>
             <li>Mobiliser les équipes pour les sessions de formation<span class="action-plan-owner">Équipes PAP</span></li>
             <li>Fournir les documents nécessaires à la portabilité des numéros<span class="action-plan-owner">Équipes PAP</span></li>
             <li>Valider le bon fonctionnement en production après installation<span class="action-plan-owner">Équipes PAP</span></li>
@@ -1232,20 +1287,6 @@
         <div>
           <h4>Académie virtuelle</h4>
           <p>Un espace de formation continue pour vos conseillers, pour progresser en autonomie.</p>
-        </div>
-      </li>
-      <li>
-        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6l-4 4H4a1 1 0 0 0-1 1z"/><path d="M16 8a4 4 0 0 1 0 8"/><path d="M19 5a8 8 0 0 1 0 14"/></svg></div>
-        <div>
-          <h4>Campagnes d'appels et SMS</h4>
-          <p>Appels et SMS massifs pour vos campagnes commerciales ou de relance, avec scripts d'appel et statistiques avancées pour piloter finement vos performances.</p>
-        </div>
-      </li>
-      <li>
-        <div class="roadmap-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 13h6"/><path d="M9 17h6"/><path d="M9 9h2"/></svg></div>
-        <div>
-          <h4>Scripts affichés en direct</h4>
-          <p>Une trame ou une base de connaissances accessible directement pendant l'appel, pour guider vos conseillers en temps réel.</p>
         </div>
       </li>
       <li>
