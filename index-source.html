@@ -482,9 +482,48 @@
     .suite-blob{animation:none;}
     .suite-blobs{transition:none;}
   }
+
+  /* ---------- password lock screen ---------- */
+  .lock-overlay{
+    position:fixed; inset:0; z-index:9999; background:var(--bg);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .lock-card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    box-shadow:var(--shadow); max-width:380px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .lock-card .brand{justify-content:center; margin-bottom:20px;}
+  .lock-card h2{font-family:var(--font-display); font-size:19px; margin:0 0 8px;}
+  .lock-card p{color:var(--ink-soft); font-size:14px; margin:0 0 20px;}
+  .lock-card input[type="password"]{
+    width:100%; padding:11px 14px; border:1px solid var(--panel-border); border-radius:var(--radius-sm);
+    font-size:15px; font-family:var(--font-body); margin-bottom:12px;
+  }
+  .lock-card input[type="password"]:focus{outline:2px solid var(--teal); outline-offset:1px; border-color:var(--teal-deep);}
+  .lock-card button{
+    width:100%; padding:11px 14px; border:none; border-radius:var(--radius-sm);
+    background:var(--teal-deep); color:#fff; font-weight:600; font-size:15px; cursor:pointer;
+  }
+  .lock-card button:hover{background:var(--teal-ink);}
+  .lock-error{color:var(--bad); font-size:13.5px; margin-top:10px; min-height:18px;}
 </style>
 </head>
 <body>
+
+<div class="lock-overlay" id="lockOverlay">
+  <div class="lock-card">
+    <div class="brand"><span class="dot"></span> Ringover <span class="x">×</span> <img src="logo-pap.png" alt="PAP" class="brand-logo"></div>
+    <h2>Accès protégé</h2>
+    <p>Ce dossier est réservé à PAP et Ringover. Merci de saisir le mot de passe transmis.</p>
+    <form id="lockForm" autocomplete="off">
+      <input type="password" id="lockPassword" placeholder="Mot de passe" autocomplete="current-password" required>
+      <button type="submit">Accéder au dossier</button>
+      <div class="lock-error" id="lockError"></div>
+    </form>
+  </div>
+</div>
+
+<div id="siteContent" hidden>
 
 <div class="topbar">
   <div class="wrap topbar-inner">
@@ -1374,6 +1413,44 @@
   });
 })();
 </script>
+
+</div><!-- /siteContent -->
+
+<script>
+(function initLock(){
+  var PASSWORD = "Brisk-Subway-7-Glacier-Jumping!";
+  var STORAGE_KEY = "pap-unlocked";
+  var overlay = document.getElementById("lockOverlay");
+  var content = document.getElementById("siteContent");
+  var form = document.getElementById("lockForm");
+  var input = document.getElementById("lockPassword");
+  var error = document.getElementById("lockError");
+
+  function unlock(){
+    overlay.style.display = "none";
+    content.hidden = false;
+    sessionStorage.setItem(STORAGE_KEY, "1");
+  }
+
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+    unlock();
+  } else {
+    input.focus();
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if (input.value === PASSWORD) {
+      unlock();
+    } else {
+      error.textContent = "Mot de passe incorrect.";
+      input.value = "";
+      input.focus();
+    }
+  });
+})();
+</script>
+
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "8c80da4f79124f5886be205f7d717c93"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
